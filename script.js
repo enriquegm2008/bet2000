@@ -1,35 +1,29 @@
-let saldo = 1000;
+let dinero = 1000;
 
-function apostar() {
-    let apuesta = prompt("¿Cuántos puntos quieres apostar?");
+function apostarPartido(partido) {
+    const cantidadApuesta = parseInt(document.getElementById("cantidad-apuesta").value);
     
-    if (apuesta === null || apuesta === "") {
-        alert("Apuesta cancelada.");
+    if (cantidadApuesta <= 0) {
+        alert("Por favor, ingresa una cantidad válida.");
+        return;
+    }
+    
+    if (cantidadApuesta > dinero) {
+        alert("No tienes suficiente dinero para hacer esta apuesta.");
         return;
     }
 
-    apuesta = parseInt(apuesta);
+    // Actualizar el dinero disponible
+    dinero -= cantidadApuesta;
+    document.getElementById("dinero").textContent = dinero;
 
-    if (isNaN(apuesta) || apuesta <= 0) {
-        alert("Ingresa un número válido.");
-        return;
-    }
+    // Mostrar el resultado de la apuesta
+    const resultado = (Math.random() < 0.5) ? "¡Ganaste!" : "Perdiste...";
+    alert(`Apuesta en ${partido} - Apostaste ${cantidadApuesta} puntos. ${resultado}`);
+}
 
-    if (apuesta > saldo) {
-        alert("No tienes suficiente saldo.");
-        return;
-    }
-
-    // Simulación de apuesta (50% de ganar o perder)
-    let resultado = Math.random() < 0.5 ? "ganaste" : "perdiste";
-
-    if (resultado === "ganaste") {
-        saldo += apuesta;
-        alert(`¡Felicidades! Ganaste ${apuesta} puntos.`);
-    } else {
-        saldo -= apuesta;
-        alert(`Lo siento, perdiste ${apuesta} puntos.`);
-    }
-
-    document.getElementById("saldo").textContent = saldo;
+function recargarCuenta() {
+    dinero = 1000; // Recargamos la cuenta con 1000 puntos
+    document.getElementById("dinero").textContent = dinero;
+    alert("Tu cuenta ha sido recargada.");
 }

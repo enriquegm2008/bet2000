@@ -3,19 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apuestas Ficticias</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Apuestas Deportivas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Apuestas Deportivas con Dinero Ficticio</h1>
+        <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
     </header>
 
-    <main>
-        <p>Saldo disponible: <span id="saldo">1000</span> puntos</p>
-        <button onclick="apostar()">Realizar Apuesta</button>
-    </main>
+    <!-- Resto de la página -->
+    <div class="deportes">
+        <div class="deporte">
+            <a href="futbol.html">Fútbol</a>
+        </div>
+        <div class="deporte">
+            <a href="baloncesto.html">Baloncesto</a>
+        </div>
+        <div class="deporte">
+            <a href="tenis.html">Tenis</a>
+        </div>
+    </div>
 
-    <script src="js/script.js"></script>
+    <div class="fecha">
+        <h3>3 de marzo</h3>
+        <div class="partidos">
+            <div class="partido">
+                <h4>Equipo 1 vs Equipo 2</h4>
+                <p><strong>Hora:</strong> <span class="hora">15:30</span></p>
+                <button>Apostar</button>
+            </div>
+            <div class="partido">
+                <h4>Equipo 3 vs Equipo 4</h4>
+                <p><strong>Hora:</strong> <span class="hora">17:00</span></p>
+                <button>Apostar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Apuestas Deportivas. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

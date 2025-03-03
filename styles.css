@@ -1,27 +1,117 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 50px;
-    background-color: #f4f4f4;
+    background-color: #1a1a1a;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
+/* Header */
 header {
-    background-color: #007bff;
+    background-color: #33691E; /* Cambiado a verde más oscuro */
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+header .bet {
     color: white;
+}
+
+header .numero {
+    color: yellow;
+}
+
+/* Estilos para la barra de navegación de deportes */
+.deportes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.deporte {
+    background-color: #333;
     padding: 10px;
+    text-align: center;
     border-radius: 5px;
+}
+
+.deporte a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos para las fechas y partidos */
+.fecha {
+    margin-top: 30px;
+    background-color: #191919;
+    padding: 10px;
+    color: white;
+    text-align: left;
+}
+
+.fecha h3 {
+    background-color: #33691E; /* Cambiado a verde más oscuro */
+    padding: 10px;
+    color: white;
+    text-align: left;
+    margin: 0;
+}
+
+.partidos {
+    margin-top: 10px;
+}
+
+.partido {
+    background-color: #333;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.partido h4 {
+    color: white;
+}
+
+.partido p {
+    color: white;
+    font-size: 1em;
+}
+
+.partido .hora {
+    font-weight: bold;
+    color: #33691E; /* Cambiado a verde más oscuro */
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #28a745;
-    color: white;
+    background-color: #33691E; /* Cambiado a verde más oscuro */
     border: none;
-    border-radius: 5px;
+    padding: 10px;
+    color: white;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #1e4d13; /* Un verde aún más oscuro para hover */
+}
+
+/* Estilos para el footer */
+footer {
+    background-color: #333;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
 }
