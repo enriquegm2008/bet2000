@@ -1,117 +1,145 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: white;
+/* Reset de estilos */
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* Header */
-header {
-    background-color: #33691E; /* Cambiado a verde más oscuro */
-    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos generales */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a; /* Fondo oscuro (similar al de Bet365) */
+    color: #e5e5e5; /* Color de texto claro */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Cabecera */
+  header {
+    background-color: #006c3f; /* Verde oscuro */
+    color: white;
+    padding: 15px 0;
     text-align: center;
-}
-
-header h1 {
+  }
+  
+  header h1 {
     font-size: 3em;
     margin: 0;
-}
-
-header .bet {
-    color: white;
-}
-
-header .numero {
-    color: yellow;
-}
-
-/* Estilos para la barra de navegación de deportes */
-.deportes {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-
-.deporte {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-}
-
-.deporte a {
-    color: white;
-    text-decoration: none;
-}
-
-/* Estilos para las fechas y partidos */
-.fecha {
-    margin-top: 30px;
-    background-color: #191919;
-    padding: 10px;
-    color: white;
-    text-align: left;
-}
-
-.fecha h3 {
-    background-color: #33691E; /* Cambiado a verde más oscuro */
-    padding: 10px;
-    color: white;
-    text-align: left;
-    margin: 0;
-}
-
-.partidos {
+  }
+  
+  header .bet {
+    color: #fff;
+  }
+  
+  header .numero {
+    color: #f5a623; /* Naranja claro para el nombre */
+  }
+  
+  nav {
     margin-top: 10px;
-}
-
-.partido {
-    background-color: #333;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-}
-
-.partido h4 {
+  }
+  
+  nav button {
+    background-color: #008c56; /* Verde medio */
     color: white;
-}
-
-.partido p {
-    color: white;
-    font-size: 1em;
-}
-
-.partido .hora {
-    font-weight: bold;
-    color: #33691E; /* Cambiado a verde más oscuro */
-}
-
-button {
-    background-color: #33691E; /* Cambiado a verde más oscuro */
     border: none;
-    padding: 10px;
-    color: white;
+    padding: 12px 20px;
+    margin: 0 15px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-button:hover {
-    background-color: #1e4d13; /* Un verde aún más oscuro para hover */
-}
-
-/* Estilos para el footer */
-footer {
-    background-color: #333;
-    padding: 10px;
-    color: white;
+    font-size: 1.1em;
+  }
+  
+  nav button:hover {
+    background-color: #006c3f; /* Verde oscuro */
+  }
+  
+  /* Estilos de contenido principal */
+  main {
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  /* Título de la sección de partidos */
+  .partidos h2 {
+    font-size: 2.5em;
+    color: #e5e5e5; /* Texto claro */
+    margin-bottom: 20px;
     text-align: center;
-    position: relative;
-    bottom: 0;
+  }
+  
+  /* Estilos para la tabla de partidos */
+  table {
     width: 100%;
-    margin-top: auto;
-}
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th {
+    background-color: #006c3f; /* Verde oscuro */
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 1.2em;
+  }
+  
+  td {
+    background-color: #333; /* Fondo oscuro para las celdas */
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #444;
+  }
+  
+  td .escudo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  td .equipo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  td span {
+    font-size: 1.2em;
+    color: #e5e5e5; /* Texto claro */
+  }
+  
+  td.cuotas span {
+    font-size: 1.4em;
+    color: #e67e22; /* Naranja para las cuotas */
+  }
+  
+  /* Estilo del pie de página */
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #006c3f; /* Verde oscuro */
+    color: white;
+  }
+  
+  footer p {
+    font-size: 1.1em;
+  }
+  
+  /* Respuesta para dispositivos pequeños */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2em;
+    }
+  
+    nav button {
+      padding: 10px 15px;
+    }
+  
+    .partidos h2 {
+      font-size: 1.8em;
+    }
+  
+    table {
+      font-size: 0.9em;
+    }
+  }
+  

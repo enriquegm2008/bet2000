@@ -4,13 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web de Apuestas Deportivas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
+    <nav>
+      <button onclick="window.location.href='registrarse.html'">Registrarse</button>
+      <button onclick="window.location.href='iniciar-sesion.html'">Iniciar sesión</button>
+    </nav>
+  </header>
+
+  <!-- Contenido principal -->
+  <main>
+    <section class="partidos">
+      <h2>Partidos disponibles para apostar</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Equipos</th>
+            <th>1</th>
+            <th>X</th>
+            <th>2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="equipo">
+                <img src="images/RealMadrid.png" alt="Real Madrid" class="escudo">
+                <span>Real Madrid</span>
+              </div>
+              <div class="equipo">
+                <img src="images/Barcelona.png" alt="Barcelona" class="escudo">
+                <span>Barcelona</span>
+              </div>
+            </td>
+            <td class="cuotas">
+              <span>1.80</span>
+            </td>
+            <td class="cuotas">
+              <span>3.20</span>
+            </td>
+            <td class="cuotas">
+              <span>2.10</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="equipo">
+                <img src="images/ManchesterCity.png" alt="Manchester City" class="escudo">
+                <span>Manchester City</span>
+              </div>
+              <div class="equipo">
+                <img src="images/Liverpool.png" alt="Liverpool" class="escudo">
+                <span>Liverpool</span>
+              </div>
+            </td>
+            <td class="cuotas">
+              <span>2.50</span>
+            </td>
+            <td class="cuotas">
+              <span>3.00</span>
+            </td>
+            <td class="cuotas">
+              <span>2.80</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
+  </footer>
+
+  <!-- Script de Firebase y lógica de apuestas -->
   <script type="module">
-    // Importar Firebase SDKs
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
-    // Configuración de Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
       authDomain: "bet2000-e000a.firebaseapp.com",
@@ -21,81 +99,21 @@
       measurementId: "G-MYWP8TMXH9"
     };
 
-    // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
-
-    // Inicializar servicios de Firebase
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Función para leer el saldo del usuario
     async function obtenerSaldo(userId) {
       const docRef = doc(db, "users", userId);
       const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        return docSnap.data().saldo;
-      } else {
-        console.log("No se encontró el documento del usuario.");
-        return 0;
-      }
+      return docSnap.exists() ? docSnap.data().saldo : 0;
     }
 
-    // Función para actualizar el saldo del usuario
     async function actualizarSaldo(userId, cantidad) {
       const userRef = doc(db, "users", userId);
-      await updateDoc(userRef, {
-        saldo: cantidad
-      });
+      await updateDoc(userRef, { saldo: cantidad });
     }
 
-    // Registrar un nuevo usuario
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        // Crear un documento del usuario con saldo inicial
-        await setDoc(doc(db, "users", user.uid), {
-          saldo: 1000 // Saldo inicial de dinero ficticio
-        });
-
-        alert("Usuario registrado exitosamente");
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-
-    // Login de usuario
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        alert("Inicio de sesión exitoso");
-
-        // Guardar el ID del usuario para usarlo más tarde
-        localStorage.setItem("userId", user.uid);
-
-        // Obtener el saldo del usuario
-        const saldo = await obtenerSaldo(user.uid);
-        document.getElementById('saldo').innerText = "Saldo disponible: " + saldo + " puntos";
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-
-    // Función para realizar apuestas
     async function apostar(cantidadApuesta) {
       const userId = localStorage.getItem("userId");
       const saldoActual = await obtenerSaldo(userId);
@@ -108,44 +126,9 @@
       const nuevoSaldo = saldoActual - cantidadApuesta;
       await actualizarSaldo(userId, nuevoSaldo);
 
-      alert("Apuesta realizada con éxito. Tu nuevo saldo es " + nuevoSaldo);
-      document.getElementById('saldo').innerText = "Saldo disponible: " + nuevoSaldo + " puntos";
+      alert(`Apuesta realizada con éxito. Tu nuevo saldo es ${nuevoSaldo} puntos`);
     }
   </script>
-</head>
-<body>
-  <h1>Bienvenido a la Web de Apuestas Deportivas</h1>
 
-  <!-- Formulario de Registro -->
-  <div>
-    <h2>Registro</h2>
-    <form id="registerForm">
-      <input type="email" id="email" placeholder="Correo electrónico" required />
-      <input type="password" id="password" placeholder="Contraseña" required />
-      <button type="submit">Registrar</button>
-    </form>
-  </div>
-
-  <!-- Formulario de Login -->
-  <div>
-    <h2>Iniciar sesión</h2>
-    <form id="loginForm">
-      <input type="email" id="loginEmail" placeholder="Correo electrónico" required />
-      <input type="password" id="loginPassword" placeholder="Contraseña" required />
-      <button type="submit">Iniciar sesión</button>
-    </form>
-  </div>
-
-  <!-- Mostrar saldo del usuario -->
-  <div>
-    <h3 id="saldo">Saldo disponible: 0 puntos</h3>
-  </div>
-
-  <!-- Realizar apuesta -->
-  <div>
-    <h2>Realiza tu apuesta</h2>
-    <button onclick="apostar(100)">Apostar 100 puntos</button>
-    <button onclick="apostar(500)">Apostar 500 puntos</button>
-  </div>
 </body>
 </html>
