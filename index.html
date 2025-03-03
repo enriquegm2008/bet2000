@@ -1,47 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apuestas Deportivas</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web de Apuestas Deportivas</title>
+  <script type="module">
+    // Importar Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
+      authDomain: "bet2000-e000a.firebaseapp.com",
+      projectId: "bet2000-e000a",
+      storageBucket: "bet2000-e000a.appspot.com",
+      messagingSenderId: "547808109527",
+      appId: "1:547808109527:web:8821956a2edc93a90b2192",
+      measurementId: "G-MYWP8TMXH9"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Inicializar servicios de Firebase
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Función para leer el saldo del usuario
+    async function obtenerSaldo(userId) {
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data().saldo;
+      } else {
+        console.log("No se encontró el documento del usuario.");
+        return 0;
+      }
+    }
+
+    // Función para actualizar el saldo del usuario
+    async function actualizarSaldo(userId, cantidad) {
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userRef, {
+        saldo: cantidad
+      });
+    }
+
+    // Registrar un nuevo usuario
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Crear un documento del usuario con saldo inicial
+        await setDoc(doc(db, "users", user.uid), {
+          saldo: 1000 // Saldo inicial de dinero ficticio
+        });
+
+        alert("Usuario registrado exitosamente");
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    // Login de usuario
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        alert("Inicio de sesión exitoso");
+
+        // Guardar el ID del usuario para usarlo más tarde
+        localStorage.setItem("userId", user.uid);
+
+        // Obtener el saldo del usuario
+        const saldo = await obtenerSaldo(user.uid);
+        document.getElementById('saldo').innerText = "Saldo disponible: " + saldo + " puntos";
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    // Función para realizar apuestas
+    async function apostar(cantidadApuesta) {
+      const userId = localStorage.getItem("userId");
+      const saldoActual = await obtenerSaldo(userId);
+
+      if (cantidadApuesta > saldoActual) {
+        alert("No tienes suficiente saldo.");
+        return;
+      }
+
+      const nuevoSaldo = saldoActual - cantidadApuesta;
+      await actualizarSaldo(userId, nuevoSaldo);
+
+      alert("Apuesta realizada con éxito. Tu nuevo saldo es " + nuevoSaldo);
+      document.getElementById('saldo').innerText = "Saldo disponible: " + nuevoSaldo + " puntos";
+    }
+  </script>
 </head>
 <body>
-    <header>
-        <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
-    </header>
+  <h1>Bienvenido a la Web de Apuestas Deportivas</h1>
 
-    <!-- Resto de la página -->
-    <div class="deportes">
-        <div class="deporte">
-            <a href="futbol.html">Fútbol</a>
-        </div>
-        <div class="deporte">
-            <a href="baloncesto.html">Baloncesto</a>
-        </div>
-        <div class="deporte">
-            <a href="tenis.html">Tenis</a>
-        </div>
-    </div>
+  <!-- Formulario de Registro -->
+  <div>
+    <h2>Registro</h2>
+    <form id="registerForm">
+      <input type="email" id="email" placeholder="Correo electrónico" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Registrar</button>
+    </form>
+  </div>
 
-    <div class="fecha">
-        <h3>3 de marzo</h3>
-        <div class="partidos">
-            <div class="partido">
-                <h4>Equipo 1 vs Equipo 2</h4>
-                <p><strong>Hora:</strong> <span class="hora">15:30</span></p>
-                <button>Apostar</button>
-            </div>
-            <div class="partido">
-                <h4>Equipo 3 vs Equipo 4</h4>
-                <p><strong>Hora:</strong> <span class="hora">17:00</span></p>
-                <button>Apostar</button>
-            </div>
-        </div>
-    </div>
+  <!-- Formulario de Login -->
+  <div>
+    <h2>Iniciar sesión</h2>
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Correo electrónico" required />
+      <input type="password" id="loginPassword" placeholder="Contraseña" required />
+      <button type="submit">Iniciar sesión</button>
+    </form>
+  </div>
 
-    <footer>
-        <p>&copy; 2025 Apuestas Deportivas. Todos los derechos reservados.</p>
-    </footer>
+  <!-- Mostrar saldo del usuario -->
+  <div>
+    <h3 id="saldo">Saldo disponible: 0 puntos</h3>
+  </div>
+
+  <!-- Realizar apuesta -->
+  <div>
+    <h2>Realiza tu apuesta</h2>
+    <button onclick="apostar(100)">Apostar 100 puntos</button>
+    <button onclick="apostar(500)">Apostar 500 puntos</button>
+  </div>
 </body>
 </html>
