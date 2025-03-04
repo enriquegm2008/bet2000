@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrar Resultados</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="center-content">
+        <h1><span class="bet">Bet</span><span class="numero">2000</span> - Admin</h1>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <section class="resultados">
+      <h2>Definir Resultados</h2>
+      
+      <div class="partido">
+        <span class="fecha">4 marzo</span>
+        <div class="equipos">
+          <div class="equipo">
+            <img src="../images/RealMadrid.png" alt="Real Madrid" class="escudo">
+            <span class="nombre-equipo">Real Madrid</span>
+            <input type="radio" name="resultado-partido-1" value="Real Madrid">
+          </div>
+          <div class="equipo second-team">
+            <input type="radio" name="resultado-partido-1" value="Barcelona">
+            <span class="nombre-equipo">Barcelona</span>
+            <img src="../images/Barcelona.png" alt="Barcelona" class="escudo">
+          </div>
+        </div>
+        <button onclick="definirResultado('1')">Definir Resultado</button>
+      </div>
+
+      <div class="partido">
+        <span class="fecha">5 marzo</span>
+        <div class="equipos">
+          <div class="equipo">
+            <img src="../images/ManchesterCity.png" alt="Manchester City" class="escudo">
+            <span class="nombre-equipo">Manchester City</span>
+            <input type="radio" name="resultado-partido-2" value="Manchester City">
+          </div>
+          <div class="equipo second-team">
+            <input type="radio" name="resultado-partido-2" value="Liverpool">
+            <span class="nombre-equipo">Liverpool</span>
+            <img src="../images/Liverpool.png" alt="Liverpool" class="escudo">
+          </div>
+        </div>
+        <button onclick="definirResultado('2')">Definir Resultado</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
+  </footer>
+
+  <script src="admin.js" type="module"></script>
+</body>
+</html>

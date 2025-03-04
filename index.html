@@ -10,71 +10,75 @@
 
   <!-- Header -->
   <header>
-    <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
-    <nav>
-      <button onclick="window.location.href='registrarse.html'">Registrarse</button>
-      <button onclick="window.location.href='iniciar-sesion.html'">Iniciar sesión</button>
-    </nav>
+    <div class="header-content">
+      <div class="left-content">
+        <span id="balance" class="balance">Dinero ficticio: $1000</span>
+      </div>
+      <div class="center-content">
+        <a href="index.html">
+          <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
+        </a>
+      </div>
+      <div class="right-content">
+        <!-- Si el usuario está autenticado -->
+        <nav id="nav-user" style="display: none;">
+          <button id="btn-logout" class="small-button" onclick="logout()">Cerrar sesión</button>
+          <img src="images/Logo.png" alt="Logo" class="logo">
+          <!-- Enlace a la página de administración -->
+          <!-- Este botón solo será visible para los administradores -->
+          <button id="admin-link" class="small-button" style="display: none;" onclick="window.location.href='admin/admin.html'">Admin</button>
+        </nav>
+        <!-- Si el usuario no está autenticado -->
+        <nav id="nav-guest">
+          <button onclick="window.location.href='registrarse.html'">Registrarse</button>
+          <button onclick="window.location.href='iniciar-sesion.html'">Iniciar sesión</button>
+        </nav>
+      </div>
+    </div>
   </header>
 
   <!-- Contenido principal -->
   <main>
     <section class="partidos">
       <h2>Partidos disponibles para apostar</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Equipos</th>
-            <th>1</th>
-            <th>X</th>
-            <th>2</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="equipo">
-                <img src="images/RealMadrid.png" alt="Real Madrid" class="escudo">
-                <span>Real Madrid</span>
-              </div>
-              <div class="equipo">
-                <img src="images/Barcelona.png" alt="Barcelona" class="escudo">
-                <span>Barcelona</span>
-              </div>
-            </td>
-            <td class="cuotas">
-              <span>1.80</span>
-            </td>
-            <td class="cuotas">
-              <span>3.20</span>
-            </td>
-            <td class="cuotas">
-              <span>2.10</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="equipo">
-                <img src="images/ManchesterCity.png" alt="Manchester City" class="escudo">
-                <span>Manchester City</span>
-              </div>
-              <div class="equipo">
-                <img src="images/Liverpool.png" alt="Liverpool" class="escudo">
-                <span>Liverpool</span>
-              </div>
-            </td>
-            <td class="cuotas">
-              <span>2.50</span>
-            </td>
-            <td class="cuotas">
-              <span>3.00</span>
-            </td>
-            <td class="cuotas">
-              <span>2.80</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      
+      <div class="partido" onclick="window.location.href='apuesta/apuesta.html?partido=1'">
+        <span class="fecha">4 marzo</span>
+        <div class="equipos">
+          <div class="equipo">
+            <img src="images/RealMadrid.png" alt="Real Madrid" class="escudo">
+            <span class="nombre-equipo">Real Madrid</span>
+          </div>
+          <div class="equipo second-team">
+            <span class="nombre-equipo">Barcelona</span>
+            <img src="images/Barcelona.png" alt="Barcelona" class="escudo">
+          </div>
+        </div>
+        <div class="cuotas">
+          <span class="cuota">1.80</span>
+          <span class="cuota">3.20</span>
+          <span class="cuota">2.10</span>
+        </div>
+      </div>
+
+      <div class="partido" onclick="window.location.href='apuesta/apuesta.html?partido=2'">
+        <span class="fecha">5 marzo</span>
+        <div class="equipos">
+          <div class="equipo">
+            <img src="images/ManchesterCity.png" alt="Manchester City" class="escudo">
+            <span class="nombre-equipo">Manchester City</span>
+          </div>
+          <div class="equipo second-team">
+            <span class="nombre-equipo">Liverpool</span>
+            <img src="images/Liverpool.png" alt="Liverpool" class="escudo">
+          </div>
+        </div>
+        <div class="cuotas">
+          <span class="cuota">2.50</span>
+          <span class="cuota">3.00</span>
+          <span class="cuota">2.80</span>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -83,11 +87,11 @@
     <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
   </footer>
 
-  <!-- Script de Firebase y lógica de apuestas -->
+  <!-- Firebase Script y Lógica -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
@@ -103,30 +107,53 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    async function obtenerSaldo(userId) {
-      const docRef = doc(db, "users", userId);
-      const docSnap = await getDoc(docRef);
-      return docSnap.exists() ? docSnap.data().saldo : 0;
-    }
+    // Verificar el estado de autenticación
+    onAuthStateChanged(auth, async (user) => {
+      const navUser = document.getElementById('nav-user');
+      const navGuest = document.getElementById('nav-guest');
+      const balance = document.getElementById('balance');
+      const adminLink = document.getElementById('admin-link');
 
-    async function actualizarSaldo(userId, cantidad) {
-      const userRef = doc(db, "users", userId);
-      await updateDoc(userRef, { saldo: cantidad });
-    }
+      if (user) {
+        // Si el usuario está logueado
+        navUser.style.display = 'flex';  // Mostrar el bloque de usuario
+        navGuest.style.display = 'none'; // Ocultar el bloque de invitado
 
-    async function apostar(cantidadApuesta) {
-      const userId = localStorage.getItem("userId");
-      const saldoActual = await obtenerSaldo(userId);
+        // Obtener el saldo del usuario desde Firestore
+        const userDocRef = doc(db, "usuarios", user.uid);
+        const userDoc = await getDoc(userDocRef);
 
-      if (cantidadApuesta > saldoActual) {
-        alert("No tienes suficiente saldo.");
-        return;
+        if (userDoc.exists()) {
+          // Si el documento del usuario existe, mostramos el saldo almacenado
+          document.getElementById('balance').innerText = `Dinero ficticio: $${userDoc.data().saldo}`;
+        } else {
+          // Si no existe, creamos el documento con un saldo inicial de 1000
+          await setDoc(userDocRef, { saldo: 1000 });
+          document.getElementById('balance').innerText = `Dinero ficticio: $1000`;
+        }
+
+        // Verificar si el usuario es un administrador
+        const roleDocRef = doc(db, "roles", user.uid);
+        const roleDoc = await getDoc(roleDocRef);
+        if (roleDoc.exists() && roleDoc.data().role === "admin") {
+          // Mostrar el enlace a la página de administración
+          adminLink.style.display = 'inline-block';
+        }
+      } else {
+        // Si el usuario no está logueado
+        navUser.style.display = 'none';  // Ocultar el bloque de usuario
+        navGuest.style.display = 'flex'; // Mostrar el bloque de invitado (con botones de login y registro)
       }
+    });
 
-      const nuevoSaldo = saldoActual - cantidadApuesta;
-      await actualizarSaldo(userId, nuevoSaldo);
-
-      alert(`Apuesta realizada con éxito. Tu nuevo saldo es ${nuevoSaldo} puntos`);
+    // Función para cerrar sesión
+    function logout() {
+      signOut(auth).then(() => {
+        // Redirigir al usuario a la página de inicio después de cerrar sesión
+        window.location.href = "index.html";
+      }).catch((error) => {
+        console.error("Error al cerrar sesión:", error);
+      });
     }
   </script>
 

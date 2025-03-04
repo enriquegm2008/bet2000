@@ -1,0 +1,103 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #e5e5e5;
+}
+
+/* Cabecera */
+header {
+    background-color: #006c3f;
+    color: white;
+    padding: 12px 0;
+    text-align: center;
+}
+
+header .header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header .bet {
+    color: #f5a623;
+}
+
+header .numero {
+    color: white;
+}
+
+/* Resultados */
+.resultados {
+    text-align: center;
+    padding: 20px;
+}
+
+.partido {
+    background-color: #333;
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 5px;
+    width: 80%;
+}
+
+.partido .equipos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.equipo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.equipo input[type="radio"] {
+    margin-left: 10px;
+}
+
+.escudo {
+    width: 50px;
+    height: 50px;
+}
+
+.nombre-equipo {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 18px;
+    background-color: #006c3f;
+    color: white;
+}

@@ -1,0 +1,287 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #e5e5e5;
+}
+
+/* Cabecera */
+header {
+    background-color: #006c3f;
+    color: white;
+    padding: 12px 0; /* Reducimos el padding */
+    text-align: center;
+}
+
+header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .left-content {
+    flex: 1;
+    text-align: left;
+}
+
+header .center-content {
+    text-align: center;
+}
+
+header .right-content {
+    flex: 1;
+    text-align: right;
+}
+
+header a {
+    text-decoration: none;
+}
+
+header h1 {
+    font-size: 2.5em; /* Reducimos el tamaño del título */
+    margin: 0;
+}
+
+header .bet {
+    color: #f5a623;
+}
+
+header .numero {
+    color: white;
+}
+
+header nav#nav-guest {
+    display: inline-block;
+}
+
+header nav#nav-guest button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 0.9em; /* Hacemos los botones más pequeños */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+header nav#nav-guest button:hover {
+    background-color: #218838;
+}
+
+header nav#nav-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+header nav#nav-user button {
+    padding: 5px 10px;
+    font-size: 0.9em; /* Hacemos el botón más pequeño */
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto; /* Ajustamos el ancho del botón */
+    margin-right: 10px; /* Añadimos margen a la derecha */
+}
+
+header nav#nav-user button:hover {
+    background-color: #c82333;
+}
+
+header nav#nav-user .logo {
+    width: 30px; /* Ajustamos el tamaño del logo */
+    height: 30px;
+}
+
+/* Equipos */
+.equipos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* Reducimos el espacio entre los elementos */
+    margin: 0 auto; /* Centramos el contenedor */
+    width: 80%; /* Reducimos el ancho del contenedor */
+}
+
+.equipo {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Aumentamos el espacio entre el escudo y el nombre */
+    width: 45%;
+}
+
+.second-team {
+    justify-content: flex-end;
+}
+
+.escudo {
+    width: 50px; /* Aumentamos el tamaño de los escudos */
+    height: 50px;
+}
+
+.nombre-equipo {
+    font-size: 1.2em; /* Aumentamos el tamaño de la fuente */
+    font-weight: bold;
+    color: white;
+}
+
+/* Título del Partido */
+.titulo-partido {
+    font-size: 1.5em;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-left: 10%;
+    width: 80%;
+}
+
+/* Cuotas */
+.cuotas-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 8px; /* Reducimos el padding */
+    border-radius: 5px;
+    margin: 0 auto 12px; /* Centramos el contenedor y reducimos el margen inferior */
+    width: 80%; /* Reducimos el ancho del contenedor */
+}
+
+.cuota-boton {
+    font-size: 1.1em; /* Reducimos el tamaño de la fuente */
+    font-weight: bold;
+    color: #e67e22;
+    padding: 4px 8px; /* Reducimos el padding */
+    border-radius: 5px;
+    background-color: #444;
+    cursor: pointer;
+    width: 30%; /* Asegura que las cuotas no ocupen demasiado espacio */
+}
+
+.cuota-boton:hover {
+    background-color: #555;
+}
+
+.cuota-boton.seleccionada {
+    background-color: #ff9800; /* Color de fondo cuando está seleccionada */
+    color: #fff; /* Color del texto cuando está seleccionada */
+}
+
+/* Menú desplegable */
+.select-container {
+    display: inline-block;
+    margin-left: 10px;
+    width: 80%; /* Reducimos el ancho del contenedor */
+}
+
+.select-container select {
+    background-color: #333;
+    color: #e5e5e5;
+    border: none;
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 5px;
+    width: 100%; /* Hacemos el select más pequeño */
+}
+
+.select-container select:focus {
+    border-color: #f5a623;
+}
+
+/* Formulario de apuesta */
+.apuesta-form {
+    margin-top: 15px; /* Reducimos el margen superior */
+    width: 80%; /* Ajustamos el ancho del formulario */
+    margin: 0 auto; /* Centramos el formulario */
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px; /* Reducimos el padding */
+    margin: 8px 0; /* Reducimos el margen */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: #e5e5e5;
+}
+
+input[type="number"]:focus {
+    border-color: #f5a623;
+}
+
+button {
+    width: 100%;
+    padding: 10px; /* Reducimos el padding */
+    background-color: #28a745;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 18px; /* Reducimos el padding */
+    background-color: #006c3f;
+    color: white;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 2em; /* Reducimos aún más el tamaño del título en pantallas pequeñas */
+    }
+
+    .equipos {
+        flex-direction: column;
+        gap: 10px; /* Reducimos el espacio entre los equipos en pantallas pequeñas */
+        width: 90%; /* Aumentamos un poco el ancho para pantallas pequeñas */
+    }
+
+    .escudo {
+        width: 40px; /* Aumentamos el tamaño de los escudos */
+        height: 40px;
+    }
+
+    .nombre-equipo {
+        font-size: 1.1em; /* Aumentamos el tamaño de la fuente */
+    }
+
+    .cuotas-container {
+        flex-direction: column; /* Los botones de cuota se apilan en pantallas pequeñas */
+        padding: 6px; /* Reducimos el padding */
+        width: 90%; /* Aumentamos un poco el ancho para pantallas pequeñas */
+    }
+
+    .cuota-boton {
+        font-size: 1em; /* Reducimos el tamaño de la fuente */
+        padding: 5px; /* Reducimos el padding */
+    }
+
+    input[type="number"] {
+        padding: 6px; /* Reducimos el padding */
+    }
+
+    button {
+        padding: 8px; /* Reducimos el padding */
+    }
+
+    /* Ajustes para el menú desplegable en pantallas pequeñas */
+    .select-container select {
+        width: 100%; /* Hacemos el select más grande para ajustarse mejor en pantallas pequeñas */
+    }
+}

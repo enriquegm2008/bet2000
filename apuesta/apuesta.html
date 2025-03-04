@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realizar Apuesta</title>
+  <link rel="stylesheet" href="apuesta.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="left-content">
+        <span id="balance" class="balance">Dinero ficticio: $1000</span>
+      </div>
+      <div class="center-content">
+        <a href="../index.html">
+          <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
+        </a>
+      </div>
+      <div class="right-content">
+        <nav id="nav-user" style="display: none;">
+          <button id="btn-logout" onclick="logout()">Cerrar sesión</button>
+          <img src="../images/Logo.png" alt="Logo" class="logo">
+        </nav>
+        <nav id="nav-guest">
+          <button onclick="window.location.href='../registrarse.html'">Registrarse</button>
+          <button onclick="window.location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <section class="partido">
+      <h2 id="titulo-partido" class="titulo-partido"></h2>
+      <div class="equipos">
+        <div class="equipo">
+          <img src="../images/RealMadrid.png" alt="Real Madrid" class="escudo">
+          <span class="nombre-equipo">Real Madrid</span>
+        </div>
+        <div class="equipo second-team">
+          <span class="nombre-equipo">Barcelona</span>
+          <img src="../images/Barcelona.png" alt="Barcelona" class="escudo">
+        </div>
+      </div>
+      <div class="cuotas-container" id="cuotas"></div>
+      <div id="apuesta-form" class="apuesta-form" style="display: none;">
+        <input type="number" id="monto-apuesta" placeholder="Ingrese el monto" min="1">
+        <button id="realizar-apuesta">Realizar Apuesta</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
+  </footer>
+
+  <script src="apuesta.js" type="module"></script>
+</body>
+</html>
