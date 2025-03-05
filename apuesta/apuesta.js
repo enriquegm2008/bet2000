@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, setDoc, collection } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
@@ -28,16 +28,16 @@ onAuthStateChanged(auth, async (user) => {
     navGuest.style.display = 'none'; // Ocultar el bloque de invitado
 
     // Obtener el saldo del usuario desde Firestore
-    const userDocRef = doc(db, "usuarios", user.uid);
+    const userDocRef = doc(db, "users", user.uid);
     const userDoc = await getDoc(userDocRef);
 
     if (userDoc.exists()) {
       // Si el documento del usuario existe, mostramos el saldo almacenado
-      document.getElementById('balance').innerText = `Dinero ficticio: $${userDoc.data().saldo}`;
+      document.getElementById('balance').innerText = `$${userDoc.data().saldo}`;
     } else {
       // Si no existe, creamos el documento con un saldo inicial de 1000
       await setDoc(userDocRef, { saldo: 1000 });
-      document.getElementById('balance').innerText = `Dinero ficticio: $1000`;
+      document.getElementById('balance').innerText = `$1000`;
     }
   } else {
     // Si el usuario no está logueado
@@ -50,24 +50,38 @@ onAuthStateChanged(auth, async (user) => {
 const params = new URLSearchParams(window.location.search);
 const partidoId = params.get("partido");
 
-const partidos = {
-  "1": { fecha: "4 marzo", equipo1: "Real Madrid", equipo2: "Barcelona", cuotas: [1.80, 3.20, 2.10] },
-  "2": { fecha: "5 marzo", equipo1: "Manchester City", equipo2: "Liverpool", cuotas: [2.50, 3.00, 2.80] }
-};
+// Obtener datos del partido desde Firestore
+async function cargarDatosPartido() {
+  const partidoRef = doc(db, "partidos", partidoId);
+  const partidoDoc = await getDoc(partidoRef);
 
-const partido = partidos[partidoId];
-
-if (partido) {
-  document.getElementById("titulo-partido").innerText = `${partido.equipo1} vs ${partido.equipo2} - ${partido.fecha}`;
-  const cuotasContainer = document.getElementById("cuotas");
-  partido.cuotas.forEach((cuota, index) => {
-    const cuotaBtn = document.createElement("button");
-    cuotaBtn.classList.add("cuota-boton");
-    cuotaBtn.innerText = cuota;
-    cuotaBtn.onclick = () => mostrarFormularioApuesta(cuota, cuotaBtn);
-    cuotasContainer.appendChild(cuotaBtn);
-  });
+  if (partidoDoc.exists()) {
+    const partido = partidoDoc.data();
+    document.getElementById("titulo-partido").innerText = `${partido.equipo1} vs ${partido.equipo2} - ${partido.fecha}`;
+    const cuotasContainer = document.getElementById("cuotas");
+    cuotasContainer.innerHTML = ''; // Limpiar cuotas antes de agregar nuevas
+    partido.cuotas.forEach((cuota, index) => {
+      const cuotaBtn = document.createElement("button");
+      cuotaBtn.classList.add("cuota-boton");
+      cuotaBtn.innerText = cuota;
+      cuotaBtn.onclick = () => mostrarFormularioApuesta(cuota, cuotaBtn);
+      cuotasContainer.appendChild(cuotaBtn);
+    });
+    
+    // Actualizar imágenes de escudos
+    document.querySelector(".equipo:first-child .escudo").src = `../images/${partido.equipo1.replace(/\s+/g, '')}.png`;
+    document.querySelector(".equipo:first-child .escudo").alt = partido.equipo1;
+    document.querySelector(".equipo:first-child .nombre-equipo").innerText = partido.equipo1;
+    
+    document.querySelector(".equipo.second-team .escudo").src = `../images/${partido.equipo2.replace(/\s+/g, '')}.png`;
+    document.querySelector(".equipo.second-team .escudo").alt = partido.equipo2;
+    document.querySelector(".equipo.second-team .nombre-equipo").innerText = partido.equipo2;
+  } else {
+    console.error("No se encontró el partido con ID:", partidoId);
+  }
 }
+
+cargarDatosPartido();
 
 function mostrarFormularioApuesta(cuotaSeleccionada, botonSeleccionado) {
   // Quitar la clase 'seleccionada' de cualquier botón previamente seleccionado
@@ -95,7 +109,7 @@ async function realizarApuesta(cuota) {
     return;
   }
 
-  const userRef = doc(db, "usuarios", user.uid);
+  const userRef = doc(db, "users", user.uid);
   const userSnap = await getDoc(userRef);
   if (!userSnap.exists()) return;
 
@@ -105,9 +119,31 @@ async function realizarApuesta(cuota) {
     return;
   }
 
-  await updateDoc(userRef, { saldo: saldoActual - monto });
-  alert(`Apuesta realizada: $${monto} a cuota ${cuota}`);
-  window.location.href = "../index.html";
+  try {
+    await updateDoc(userRef, { saldo: saldoActual - monto });
+    await realizarApuestaFirestore(user.uid, partidoId, monto, cuota);
+    alert(`Apuesta realizada: $${monto} a cuota ${cuota}`);
+    window.location.href = "../index.html";
+  } catch (error) {
+    console.error("Error al realizar la apuesta:", error);
+    alert("Hubo un problema al realizar la apuesta. Verifique las reglas de seguridad de Firestore.");
+  }
+}
+
+async function realizarApuestaFirestore(userId, partidoId, monto, cuota) {
+  try {
+    const apuestaRef = doc(collection(db, "apuestas"));
+    await setDoc(apuestaRef, {
+      userId: userId,
+      partidoId: partidoId,
+      monto: monto,
+      cuota: cuota,
+      equipo: document.querySelector(".cuota-boton.seleccionada").innerText
+    });
+    console.log("Apuesta realizada con éxito");
+  } catch (error) {
+    console.error("Error al realizar la apuesta: ", error);
+  }
 }
 
 // Función para cerrar sesión

@@ -1,62 +1,85 @@
-// Firebase SDK importado desde el HTML
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
-// Inicializar Firebase (ya configurado en el HTML)
 const firebaseConfig = {
     apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
     authDomain: "bet2000-e000a.firebaseapp.com",
     projectId: "bet2000-e000a",
-    storageBucket: "bet2000-e000a.firebasestorage.app",
+    storageBucket: "bet2000-e000a.appspot.com",
     messagingSenderId: "547808109527",
     appId: "1:547808109527:web:8821956a2edc93a90b2192",
     measurementId: "G-MYWP8TMXH9"
 };
 
-// Inicializar Firebase
-const app = firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Variables Globales
-let dinero = 1000; // Valor inicial del dinero en la cuenta
-
-// Función para registrar un nuevo usuario
-async function register() {
-    const email = document.getElementById("register-email").value;
-    const password = document.getElementById("register-password").value;
-
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        
-        // Al registrarse, crear un documento en Firestore para el usuario con un saldo inicial
-        await setDoc(doc(db, "users", user.uid), {
-            saldo: 1000 // El saldo inicial es 1000 puntos
-        });
-
-        alert("Usuario registrado con éxito.");
-        showUserSection(user.uid); // Mostrar la sección del usuario
-    } catch (error) {
-        console.error(error);
-        alert("Error al registrarse: " + error.message);
-    }
+// Función para formatear la fecha
+function formatearFecha(fecha) {
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const date = new Date(fecha);
+    const dia = date.getDate();
+    const mes = meses[date.getMonth()];
+    return `${dia} ${mes}`;
 }
 
-// Función para iniciar sesión
-async function login() {
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
+// Función para agrupar los partidos por fecha
+function agruparPartidosPorFecha(partidos) {
+    const grupos = {};
+    partidos.forEach(partido => {
+        const fechaFormateada = formatearFecha(partido.fecha);
+        if (!grupos[fechaFormateada]) {
+            grupos[fechaFormateada] = [];
+        }
+        grupos[fechaFormateada].push(partido);
+    });
+    return grupos;
+}
 
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+// Función para cargar los partidos desde Firestore
+async function cargarPartidos() {
+    const listaPartidos = document.querySelector(".partidos");
+    listaPartidos.innerHTML = "";  // Limpiar la lista antes de cargar los partidos
 
-        alert("Usuario autenticado con éxito.");
-        showUserSection(user.uid); // Mostrar la sección del usuario
-    } catch (error) {
-        console.error(error);
-        alert("Error al iniciar sesión: " + error.message);
+    const partidosSnapshot = await getDocs(collection(db, "partidos"));
+    const partidos = partidosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const partidosAgrupados = agruparPartidosPorFecha(partidos);
+
+    for (const fecha in partidosAgrupados) {
+        const grupoDiv = document.createElement("div");
+        grupoDiv.classList.add("grupo-partidos");
+        const fechaHeader = document.createElement("h3");
+        fechaHeader.classList.add("fecha-grupo");
+        fechaHeader.textContent = fecha;
+        grupoDiv.appendChild(fechaHeader);
+
+        partidosAgrupados[fecha].forEach(partido => {
+            const partidoDiv = document.createElement("div");
+            partidoDiv.classList.add("partido");
+            partidoDiv.onclick = () => window.location.href = `apuesta/apuesta.html?partido=${partido.id}`;
+            partidoDiv.innerHTML = `
+                <div class="equipos">
+                    <div class="equipo">
+                        <img src="images/${partido.equipo1.replace(/\s+/g, '')}.png" alt="${partido.equipo1}" class="escudo">
+                        <span class="nombre-equipo">${partido.equipo1}</span>
+                    </div>
+                    <div class="equipo second-team">
+                        <span class="nombre-equipo">${partido.equipo2}</span>
+                        <img src="images/${partido.equipo2.replace(/\s+/g, '')}.png" alt="${partido.equipo2}" class="escudo">
+                    </div>
+                </div>
+                <div class="cuotas">
+                    <span class="cuota">${partido.cuotas[0]}</span>
+                    <span class="cuota">${partido.cuotas[1]}</span>
+                    <span class="cuota">${partido.cuotas[2]}</span>
+                </div>
+            `;
+            grupoDiv.appendChild(partidoDiv);
+        });
+
+        listaPartidos.appendChild(grupoDiv);
     }
 }
 
@@ -64,80 +87,62 @@ async function login() {
 function logout() {
     signOut(auth).then(() => {
         alert("Has cerrado sesión.");
-        showLoginSection(); // Mostrar la sección de login/registro
+        showLoginSection();
     }).catch((error) => {
-        console.error(error);
+        console.error("Error al cerrar sesión:", error);
         alert("Error al cerrar sesión: " + error.message);
     });
 }
 
-// Función para mostrar la sección del usuario (con saldo)
-function showUserSection(userId) {
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("register-section").style.display = "none";
-    document.getElementById("user-section").style.display = "block";
+// Función para verificar el estado de autenticación del usuario y mostrar el botón de administración si es necesario
+onAuthStateChanged(auth, async (user) => {
+    const navUser = document.getElementById('nav-user');
+    const navGuest = document.getElementById('nav-guest');
+    const balance = document.getElementById('balance');
+    const adminLink = document.getElementById('admin-link');
 
-    // Cargar el saldo del usuario desde Firestore
-    cargarSaldo(userId);
-}
-
-// Función para mostrar las secciones de Login y Registro
-function showLoginSection() {
-    document.getElementById("login-section").style.display = "block";
-    document.getElementById("register-section").style.display = "block";
-    document.getElementById("user-section").style.display = "none";
-}
-
-// Función para cargar el saldo desde Firestore
-async function cargarSaldo(userId) {
-    const docRef = doc(db, "users", userId);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {
-        dinero = docSnap.data().saldo; // Obtener el saldo guardado en Firestore
-        document.getElementById("dinero").textContent = dinero;
-    } else {
-        console.log("No se encontró el documento del usuario.");
-    }
-}
-
-// Función para realizar una apuesta
-function apostarPartido(partido) {
-    const cantidadApuesta = parseInt(document.getElementById("cantidad-apuesta").value);
-    
-    if (cantidadApuesta <= 0) {
-        alert("Por favor, ingresa una cantidad válida.");
-        return;
-    }
-    
-    if (cantidadApuesta > dinero) {
-        alert("No tienes suficiente dinero para hacer esta apuesta.");
-        return;
-    }
-
-    // Actualizar el dinero disponible
-    dinero -= cantidadApuesta;
-    document.getElementById("dinero").textContent = dinero;
-
-    // Mostrar el resultado de la apuesta
-    const resultado = (Math.random() < 0.5) ? "¡Ganaste!" : "Perdiste...";
-    alert(`Apuesta en ${partido} - Apostaste ${cantidadApuesta} puntos. ${resultado}`);
-}
-
-// Función para recargar la cuenta con 1000 puntos
-function recargarCuenta() {
-    dinero = 1000; // Recargamos la cuenta con 1000 puntos
-    document.getElementById("dinero").textContent = dinero;
-    alert("Tu cuenta ha sido recargada.");
-}
-
-// Monitorear el estado de autenticación del usuario
-onAuthStateChanged(auth, (user) => {
     if (user) {
-        // Si hay un usuario autenticado, obtener su ID y mostrar la sección del usuario
-        showUserSection(user.uid);
+        navUser.style.display = 'flex';
+        navGuest.style.display = 'none';
+
+        try {
+            const userDocRef = doc(db, "users", user.uid);
+            const userDoc = await getDoc(userDocRef);
+
+            if (userDoc.exists()) {
+                balance.innerText = `$${userDoc.data().saldo}`;
+            } else {
+                await setDoc(userDocRef, { saldo: 1000 });
+                balance.innerText = `$1000`;
+            }
+
+            const roleDocRef = doc(db, "roles", user.uid);
+            const roleDoc = await getDoc(roleDocRef);
+            if (roleDoc.exists() && roleDoc.data().role === "admin") {
+                adminLink.style.display = 'inline-block';
+            } else {
+                adminLink.style.display = 'none';
+            }
+        } catch (error) {
+            console.error("Error al obtener los documentos de Firestore:", error);
+            alert("Hubo un problema al obtener los datos. Verifique las reglas de seguridad de Firestore.");
+        }
     } else {
-        // Si no hay usuario autenticado, mostrar la sección de login/registro
-        showLoginSection();
+        navUser.style.display = 'none';
+        navGuest.style.display = 'flex';
+    }
+
+    // Cargar los partidos al iniciar sesión
+    cargarPartidos();
+});
+
+// Recargar los partidos cuando se crea uno nuevo desde admin.html
+window.addEventListener('storage', (event) => {
+    if (event.key === 'reloadPartidos') {
+        cargarPartidos();
+        window.localStorage.removeItem('reloadPartidos');
     }
 });
+
+// Exponer la función logout globalmente para que sea accesible desde el HTML
+window.logout = logout;

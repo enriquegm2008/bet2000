@@ -144,6 +144,20 @@ nav .logo {
   padding: 10px;
 }
 
+/* Agrupación de partidos por fecha */
+.grupo-partidos {
+  margin-bottom: 20px;
+  background-color: #2a2a2a;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.fecha-grupo {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  color: #f5a623;
+}
+
 .partido {
   background-color: #2a2a2a; /* Fondo oscuro */
   padding: 15px;
@@ -154,16 +168,6 @@ nav .logo {
 
 .partido:hover {
   background-color: #3b3b3b; /* Fondo un poco más claro cuando se pasa el ratón */
-}
-
-/* Fecha */
-.fecha {
-  display: block;
-  text-align: left;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #f5a623;
 }
 
 /* Equipos */
@@ -233,46 +237,48 @@ footer {
   color: white;
 }
 
-/* Estilos para la sección de apuestas */
-.apuesta {
-  background-color: #2a2a2a;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 600px;
-  margin: 20px auto;
-}
+/* Ajustes para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 2em; /* Reducimos aún más el tamaño del título en pantallas pequeñas */
+  }
 
-.apuesta h2 {
-  text-align: center;
-  color: #f5a623;
-  margin-bottom: 15px;
-}
+  .equipos {
+    flex-direction: column;
+    gap: 10px; /* Reducimos el espacio entre los equipos en pantallas pequeñas */
+    width: 90%; /* Aumentamos un poco el ancho para pantallas pequeñas */
+  }
 
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #333;
-  color: #e5e5e5;
-}
+  .escudo {
+    width: 40px; /* Aumentamos el tamaño de los escudos */
+    height: 40px;
+  }
 
-input[type="number"]:focus {
-  border-color: #f5a623;
-}
+  .nombre-equipo {
+    font-size: 1.1em; /* Aumentamos el tamaño de la fuente */
+  }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #28a745;
-  color: white;
-  font-size: 1.1em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+  .cuotas-container {
+    flex-direction: column; /* Los botones de cuota se apilan en pantallas pequeñas */
+    padding: 6px; /* Reducimos el padding */
+    width: 90%; /* Aumentamos un poco el ancho para pantallas pequeñas */
+  }
 
-button:hover {
-  background-color: #218838;
+  .cuota-boton {
+    font-size: 1em; /* Reducimos el tamaño de la fuente */
+    padding: 5px; /* Reducimos el padding */
+  }
+
+  input[type="number"] {
+    padding: 6px; /* Reducimos el padding */
+  }
+
+  button {
+    padding: 8px; /* Reducimos el padding */
+  }
+
+  /* Ajustes para el menú desplegable en pantallas pequeñas */
+  .select-container select {
+    width: 100%; /* Hacemos el select más grande para ajustarse mejor en pantallas pequeñas */
+  }
 }

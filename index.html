@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web de Apuestas Deportivas</title>
   <link rel="stylesheet" href="styles.css">
+  <script type="module" src="script.js"></script>
 </head>
 <body>
-
   <!-- Header -->
   <header>
     <div class="header-content">
       <div class="left-content">
-        <span id="balance" class="balance">Dinero ficticio: $1000</span>
+        <span id="balance" class="balance">$1000</span>
       </div>
       <div class="center-content">
         <a href="index.html">
@@ -25,7 +25,6 @@
           <button id="btn-logout" class="small-button" onclick="logout()">Cerrar sesión</button>
           <img src="images/Logo.png" alt="Logo" class="logo">
           <!-- Enlace a la página de administración -->
-          <!-- Este botón solo será visible para los administradores -->
           <button id="admin-link" class="small-button" style="display: none;" onclick="window.location.href='admin/admin.html'">Admin</button>
         </nav>
         <!-- Si el usuario no está autenticado -->
@@ -86,76 +85,5 @@
   <footer>
     <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
   </footer>
-
-  <!-- Firebase Script y Lógica -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
-      authDomain: "bet2000-e000a.firebaseapp.com",
-      projectId: "bet2000-e000a",
-      storageBucket: "bet2000-e000a.appspot.com",
-      messagingSenderId: "547808109527",
-      appId: "1:547808109527:web:8821956a2edc93a90b2192",
-      measurementId: "G-MYWP8TMXH9"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // Verificar el estado de autenticación
-    onAuthStateChanged(auth, async (user) => {
-      const navUser = document.getElementById('nav-user');
-      const navGuest = document.getElementById('nav-guest');
-      const balance = document.getElementById('balance');
-      const adminLink = document.getElementById('admin-link');
-
-      if (user) {
-        // Si el usuario está logueado
-        navUser.style.display = 'flex';  // Mostrar el bloque de usuario
-        navGuest.style.display = 'none'; // Ocultar el bloque de invitado
-
-        // Obtener el saldo del usuario desde Firestore
-        const userDocRef = doc(db, "usuarios", user.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          // Si el documento del usuario existe, mostramos el saldo almacenado
-          document.getElementById('balance').innerText = `Dinero ficticio: $${userDoc.data().saldo}`;
-        } else {
-          // Si no existe, creamos el documento con un saldo inicial de 1000
-          await setDoc(userDocRef, { saldo: 1000 });
-          document.getElementById('balance').innerText = `Dinero ficticio: $1000`;
-        }
-
-        // Verificar si el usuario es un administrador
-        const roleDocRef = doc(db, "roles", user.uid);
-        const roleDoc = await getDoc(roleDocRef);
-        if (roleDoc.exists() && roleDoc.data().role === "admin") {
-          // Mostrar el enlace a la página de administración
-          adminLink.style.display = 'inline-block';
-        }
-      } else {
-        // Si el usuario no está logueado
-        navUser.style.display = 'none';  // Ocultar el bloque de usuario
-        navGuest.style.display = 'flex'; // Mostrar el bloque de invitado (con botones de login y registro)
-      }
-    });
-
-    // Función para cerrar sesión
-    function logout() {
-      signOut(auth).then(() => {
-        // Redirigir al usuario a la página de inicio después de cerrar sesión
-        window.location.href = "index.html";
-      }).catch((error) => {
-        console.error("Error al cerrar sesión:", error);
-      });
-    }
-  </script>
-
 </body>
 </html>
