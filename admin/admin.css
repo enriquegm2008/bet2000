@@ -148,6 +148,14 @@ button:hover {
     background-color: #218838;
 }
 
+.eliminar {
+    background-color: #dc3545;
+}
+
+.eliminar:hover {
+    background-color: #c82333;
+}
+
 /* Pie de página */
 footer {
     text-align: center;

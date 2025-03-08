@@ -22,14 +22,15 @@ function formatearFecha(fecha) {
     const date = new Date(fecha);
     const dia = date.getDate();
     const mes = meses[date.getMonth()];
-    return `${dia} ${mes}`;
+    const hora = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
+    return `${dia} ${mes} - ${hora}`;
 }
 
 // Función para agrupar los partidos por fecha
 function agruparPartidosPorFecha(partidos) {
     const grupos = {};
     partidos.forEach(partido => {
-        const fechaFormateada = formatearFecha(partido.fecha);
+        const fechaFormateada = formatearFecha(partido.fecha + 'T' + partido.hora);
         if (!grupos[fechaFormateada]) {
             grupos[fechaFormateada] = [];
         }
@@ -45,27 +46,33 @@ async function cargarPartidos() {
 
     const partidosSnapshot = await getDocs(collection(db, "partidos"));
     const partidos = partidosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    // Ordenar los partidos por fecha y hora
+    partidos.sort((a, b) => new Date(a.fecha + 'T' + a.hora) - new Date(b.fecha + 'T' + b.hora));
+
     const partidosAgrupados = agruparPartidosPorFecha(partidos);
 
     for (const fecha in partidosAgrupados) {
         const grupoDiv = document.createElement("div");
         grupoDiv.classList.add("grupo-partidos");
-        const fechaHeader = document.createElement("h3");
-        fechaHeader.classList.add("fecha-grupo");
-        fechaHeader.textContent = fecha;
-        grupoDiv.appendChild(fechaHeader);
 
         partidosAgrupados[fecha].forEach(partido => {
             const partidoDiv = document.createElement("div");
             partidoDiv.classList.add("partido");
             partidoDiv.onclick = () => window.location.href = `apuesta/apuesta.html?partido=${partido.id}`;
             partidoDiv.innerHTML = `
+                <div class="partido-header">
+                    <span class="fecha-hora">${formatearFecha(partido.fecha + 'T' + partido.hora)}</span>
+                </div>
                 <div class="equipos">
                     <div class="equipo">
                         <img src="images/${partido.equipo1.replace(/\s+/g, '')}.png" alt="${partido.equipo1}" class="escudo">
                         <span class="nombre-equipo">${partido.equipo1}</span>
                     </div>
-                    <div class="equipo second-team">
+                    <div class="vs">
+                        <span>VS</span>
+                    </div>
+                    <div class="equipo">
                         <span class="nombre-equipo">${partido.equipo2}</span>
                         <img src="images/${partido.equipo2.replace(/\s+/g, '')}.png" alt="${partido.equipo2}" class="escudo">
                     </div>
@@ -143,3 +150,6 @@ window.addEventListener('storage', (event) => {
         window.localStorage.removeItem('reloadPartidos');
     }
 });
+
+// Exponer la función logout globalmente para que sea accesible desde el HTML
+window.logout = logout;

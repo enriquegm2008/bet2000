@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getFirestore, doc, setDoc, updateDoc, getDocs, collection, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, updateDoc, getDocs, collection, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -122,6 +122,7 @@ async function cargarPartidos() {
         </div>
       </div>
       <button class="definir-resultado" data-partido-id="${doc.id}">Definir Resultado</button>
+      <button class="eliminar" data-partido-id="${doc.id}">Eliminar Partido</button>
     `;
     listaPartidos.appendChild(partidoDiv);
   });
@@ -130,6 +131,13 @@ async function cargarPartidos() {
     button.onclick = async (event) => {
       const partidoId = event.target.dataset.partidoId;
       await definirResultado(partidoId);
+    };
+  });
+
+  document.querySelectorAll(".eliminar").forEach(button => {
+    button.onclick = async (event) => {
+      const partidoId = event.target.dataset.partidoId;
+      await eliminarPartido(partidoId);
     };
   });
 }
@@ -151,6 +159,19 @@ async function definirResultado(partidoId) {
   } catch (error) {
     console.error("Error al definir el resultado:", error);
     alert("Hubo un problema al definir el resultado.");
+  }
+}
+
+async function eliminarPartido(partidoId) {
+  try {
+    await deleteDoc(doc(db, "partidos", partidoId));
+    alert("Partido eliminado con éxito");
+    cargarPartidos();
+    // Recargar la lista de partidos en index.html
+    window.localStorage.setItem('reloadPartidos', 'true');
+  } catch (error) {
+    console.error("Error al eliminar el partido:", error);
+    alert("Hubo un problema al eliminar el partido.");
   }
 }
 
