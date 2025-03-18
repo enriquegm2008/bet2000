@@ -5,51 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web de Apuestas Deportivas</title>
   <link rel="stylesheet" href="styles.css">
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="hyf/header/header.css">
+  <link rel="stylesheet" href="hyf/footer/footer.css">
+  <script defer type="module" src="script.js"></script>
+  <script defer src="hyf/header/header.js"></script>
+  <script defer src="hyf/footer/footer.js"></script>
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <div class="header-content">
-      <div class="left-content">
-        <span id="balance" class="balance">$1000</span>
-      </div>
-      <div class="center-content">
-        <a href="index.html">
-          <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
-        </a>
-      </div>
-      <div class="right-content">
-        <nav id="nav-user" style="display: none;">
-          <button id="btn-logout" class="small-button" onclick="logout()">Cerrar sesión</button>
-          <img src="images/Logo.png" alt="Logo" class="logo">
-          <button id="admin-link" class="small-button" style="display: none;" onclick="window.location.href='admin/admin.html'">Admin</button>
-        </nav>
-        <nav id="nav-guest">
-          <button onclick="window.location.href='registrarse.html'">Registrarse</button>
-          <button onclick="window.location.href='iniciar-sesion.html'">Iniciar sesión</button>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <div id="header-placeholder"></div>
 
   <!-- Contenido principal -->
   <main>
     <section class="principal">
       <h2>Bienvenido a Bet2000</h2>
-      <div class="balon-container">
+      <div class="balon-container" onclick="toggleOptions('balon-options')">
         <img src="images/Balon.png" alt="Balón" class="balon">
+        <div class="options-container" id="balon-options">
+          <div class="option" onclick="window.location.href='index1.html'">Partidos</div>
+          <div class="option" onclick="window.location.href='resultados.html'">Resultados</div>
+        </div>
       </div>
-      <div class="options-container">
-        <div class="option" onclick="window.location.href='index1.html'">Partidos</div>
-        <div class="option">Resultados</div>
+      <div class="balon1-container" onclick="toggleOptions('balon1-options')">
+        <img src="images/balon1.png" alt="Balón de Baloncesto" class="balon">
+        <div class="options-container" id="balon1-options">
+          <div class="option" onclick="window.location.href='index1.html'">Partidos</div>
+          <div class="option" onclick="window.location.href='resultados.html'">Resultados</div>
+        </div>
       </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
-  </footer>
+  <div id="footer-placeholder"></div>
 </body>
 </html>

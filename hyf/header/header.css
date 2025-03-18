@@ -1,0 +1,152 @@
+/* Estilos para el header */
+header {
+  background-color: #004d00; /* Verde oscuro */
+  color: white;
+  padding: 15px 0;
+}
+
+header .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+header .left-content {
+  flex: 1;
+  text-align: left;
+}
+
+header .center-content {
+  flex: 1;
+  text-align: center;
+}
+
+header .right-content {
+  flex: 1;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+header a {
+  text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+header h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+header .bet {
+  color: #ffcc00; /* Amarillo */
+}
+
+header .numero {
+  color: white;
+}
+
+#nav-user {
+  display: flex;
+  align-items: center;
+}
+
+#nav-guest {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+nav .button, nav .small-button {
+  background-color: #008c56; /* Verde medio */
+  color: white;
+  border: none;
+  padding: 4px 8px;  /* Tamaño reducido */
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.8em;
+  transition: background-color 0.3s, transform 0.3s; /* Transición suave */
+}
+
+nav .button:hover, nav .small-button:hover {
+  background-color: #006c3f; /* Verde oscuro */
+  transform: scale(1.05); /* Animación al pasar el ratón */
+}
+
+nav .button:active, nav .small-button:active {
+  transform: scale(0.95); /* Animación al hacer clic */
+}
+
+nav .logo {
+  width: auto;
+  height: 40px; /* Aumentar la altura del logo */
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.menu-icon {
+  font-size: 1.5em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #121212;
+  border-radius: 8px; /* Esquinas redondeadas */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  overflow: hidden; /* Ocultar contenido excedente */
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #121212;
+  border-bottom: 1px solid #333;
+  transition: background-color 0.3s; /* Transición suave */
+}
+
+.dropdown-content a:hover {
+  background-color: #1e1e1e; /* Fondo más oscuro al pasar el ratón */
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none; /* Elimina el borde del último elemento */
+}
+
+.balance {
+  margin-right: 15px;
+  font-size: 1.2em;
+}
+
+/* Media Queries para ajustar el tamaño en dispositivos móviles */
+@media (max-width: 767px) {
+  header h1 {
+    font-size: 1.5em; /* Reducir tamaño del texto "Bet2000" */
+  }
+
+  nav .button, nav .small-button {
+    padding: 3px 6px;
+    font-size: 0.7em;
+    margin: 0 5px;
+  }
+
+  nav .logo {
+    height: 40px;  /* Ajustar la altura del logo para que coincida con los botones */
+  }
+}

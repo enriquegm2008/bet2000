@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
@@ -16,21 +16,27 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Función para formatear la fecha
-function formatearFecha(fecha) {
+// Función para formatear solo la fecha (sin la hora)
+function formatearFechaSoloFecha(fecha) {
     const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     const date = new Date(fecha);
     const dia = date.getDate();
     const mes = meses[date.getMonth()];
+    return `${dia} ${mes}`;
+}
+
+// Función para formatear solo la hora
+function formatearFechaSoloHora(fecha) {
+    const date = new Date(fecha);
     const hora = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
-    return `${dia} ${mes} - ${hora}`;
+    return `${hora}`;
 }
 
 // Función para agrupar los partidos por fecha
 function agruparPartidosPorFecha(partidos) {
     const grupos = {};
     partidos.forEach(partido => {
-        const fechaFormateada = formatearFecha(partido.fecha + 'T' + partido.hora);
+        const fechaFormateada = formatearFechaSoloFecha(partido.fecha + 'T' + partido.hora);
         if (!grupos[fechaFormateada]) {
             grupos[fechaFormateada] = [];
         }
@@ -56,21 +62,24 @@ async function cargarPartidos() {
         const grupoDiv = document.createElement("div");
         grupoDiv.classList.add("grupo-partidos");
 
+        // Crear el título de la fecha
+        const fechaDiv = document.createElement("div");
+        fechaDiv.classList.add("fecha-titulo");
+        fechaDiv.innerHTML = `<h3>${fecha}</h3>`;  // Mostrar solo la fecha sin la hora
+        grupoDiv.appendChild(fechaDiv);
+
         partidosAgrupados[fecha].forEach(partido => {
             const partidoDiv = document.createElement("div");
             partidoDiv.classList.add("partido");
             partidoDiv.onclick = () => window.location.href = `apuesta/apuesta.html?partido=${partido.id}`;
             partidoDiv.innerHTML = `
                 <div class="partido-header">
-                    <span class="fecha-hora">${formatearFecha(partido.fecha + 'T' + partido.hora)}</span>
+                    <span class="hora">${formatearFechaSoloHora(partido.fecha + 'T' + partido.hora)}</span>
                 </div>
                 <div class="equipos">
                     <div class="equipo">
                         <img src="images/${partido.equipo1.replace(/\s+/g, '')}.png" alt="${partido.equipo1}" class="escudo">
                         <span class="nombre-equipo">${partido.equipo1}</span>
-                    </div>
-                    <div class="vs">
-                        <span>VS</span>
                     </div>
                     <div class="equipo">
                         <span class="nombre-equipo">${partido.equipo2}</span>
@@ -78,9 +87,9 @@ async function cargarPartidos() {
                     </div>
                 </div>
                 <div class="cuotas">
-                    <span class="cuota">${partido.cuotas[0]}</span>
-                    <span class="cuota">${partido.cuotas[1]}</span>
-                    <span class="cuota">${partido.cuotas[2]}</span>
+                    <span class="cuota">${partido.cuotas[0].toFixed(2)}</span>
+                    <span class="cuota">${partido.cuotas[1].toFixed(2)}</span>
+                    <span class="cuota">${partido.cuotas[2].toFixed(2)}</span>
                 </div>
             `;
             grupoDiv.appendChild(partidoDiv);
@@ -94,7 +103,7 @@ async function cargarPartidos() {
 function logout() {
     signOut(auth).then(() => {
         alert("Has cerrado sesión.");
-        showLoginSection();
+        window.location.href = "index.html";
     }).catch((error) => {
         console.error("Error al cerrar sesión:", error);
         alert("Error al cerrar sesión: " + error.message);
@@ -153,3 +162,7 @@ window.addEventListener('storage', (event) => {
 
 // Exponer la función logout globalmente para que sea accesible desde el HTML
 window.logout = logout;
+window.toggleDropdown = function() {
+    const dropdownMenu = document.getElementById("dropdown-menu");
+    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+};

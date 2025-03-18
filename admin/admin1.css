@@ -12,6 +12,102 @@ body {
     color: #e5e5e5; /* Texto claro */
 }
 
+/* Cabecera */
+header {
+    background-color: #004d00; /* Verde oscuro */
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header .left-content {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+}
+
+header .center-content {
+    text-align: center;
+}
+
+header .right-content {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+}
+
+header a {
+    text-decoration: none;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header .bet {
+    color: #ffcc00; /* Amarillo */
+}
+
+header .numero {
+    color: white;
+}
+
+header nav#nav-guest {
+    display: inline-block;
+}
+
+header nav#nav-guest button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 0.9em; /* Hacemos los botones más pequeños */
+    background-color: #008c56; /* Verde medio */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+header nav#nav-guest button:hover {
+    background-color: #006c3f; /* Verde oscuro */
+}
+
+header nav#nav-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+header nav#nav-user button {
+    padding: 5px 10px;
+    font-size: 0.9em; /* Hacemos el botón más pequeño */
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto; /* Ajustamos el ancho del botón */
+    margin-right: 10px; /* Añadimos margen a la derecha */
+}
+
+header nav#nav-user button:hover {
+    background-color: #c82333; /* Rojo oscuro */
+}
+
+header nav#nav-user .logo {
+    width: 30px; /* Ajustamos el tamaño del logo */
+    height: 30px;
+}
+
 /* Equipos */
 .equipos {
     display: flex;
@@ -144,6 +240,14 @@ button:hover {
     background-color: #006c3f; /* Verde oscuro */
 }
 
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 18px; /* Ajustamos el padding */
+    background-color: #004d00; /* Verde oscuro */
+    color: white;
+}
+
 /* Estilos para el acordeón */
 .accordion {
     margin-top: 20px;
@@ -159,129 +263,4 @@ button:hover {
     cursor: pointer;
     outline: none;
     font-size: 1.2em;
-    transition: background-color 0.2s ease-in-out;
-    position: relative; /* Para posicionar la flecha */
-}
-
-.accordion-button:hover {
-    background-color: #444;
-}
-
-.accordion-button:hover .flecha-abajo {
-    display: inline; /* Mostrar la flecha al pasar el ratón */
-}
-
-.accordion-content {
-    display: none;
-    background-color: #222;
-    padding: 10px;
-    border-top: 1px solid #444;
-}
-
-.flecha-abajo {
-    display: none; /* Ocultar la flecha por defecto */
-    position: absolute;
-    right: 10px; /* Alinear la flecha a la derecha */
-    top: 50%;
-    transform: translateY(-50%); /* Centrar verticalmente */
-    font-size: 1em;
-}
-
-/* Ajustes para pantallas pequeñas */
-@media screen and (max-width: 768px) {
-    .equipos {
-        justify-content: space-between;
-        width: 100%; /* Ajustamos el ancho para pantallas pequeñas */
-    }
-
-    .equipo {
-        justify-content: center;
-        width: 45%;
-    }
-
-    .vs {
-        font-size: 1em; /* Ajustamos el tamaño de la fuente del "VS" */
-    }
-
-    .escudo {
-        width: 25px; /* Ajustamos el tamaño de los escudos */
-        height: 25px;
-    }
-
-    .nombre-equipo {
-        font-size: 0.9em; /* Ajustamos el tamaño de la fuente */
-    }
-
-    .titulo-partido {
-        font-size: 1.3em; /* Ajustamos el tamaño del título */
-    }
-
-    .cuota-boton {
-        font-size: 1.1em; /* Ajustamos el tamaño de la fuente */
-        padding: 8px; /* Ajustamos el padding */
-    }
-
-    .cuota {
-        font-size: 1.1em; /* Ajustamos el tamaño de la fuente de la cuota */
-    }
-
-    input[type="number"] {
-        padding: 7px; /* Ajustamos el padding */
-        font-size: 0.95em; /* Ajustamos el tamaño de la fuente */
-    }
-
-    button {
-        padding: 9px; /* Ajustamos el padding */
-        font-size: 1em; /* Ajustamos el tamaño de la fuente */
-    }
-}
-
-/* Ajustes para pantallas aún más pequeñas (moviles) */
-@media screen and (max-width: 480px) {
-    .equipos {
-        justify-content: space-between;
-        flex-direction: row; /* Alineamos los equipos en una fila */
-        align-items: center;
-    }
-
-    .equipo {
-        width: 45%; /* Ajustamos el ancho */
-        justify-content: center;
-    }
-
-    .vs {
-        margin: 0 5px; /* Ajustamos el margen */
-    }
-
-    .escudo {
-        width: 20px; /* Ajustamos el tamaño de los escudos */
-        height: 20px;
-    }
-
-    .nombre-equipo {
-        font-size: 0.8em; /* Ajustamos el tamaño de la fuente */
-    }
-
-    .titulo-partido {
-        font-size: 1.2em; /* Ajustamos el tamaño del título */
-    }
-
-    .cuota-boton {
-        font-size: 1em; /* Ajustamos el tamaño de la fuente */
-        padding: 6px; /* Ajustamos el padding */
-    }
-
-    .cuota {
-        font-size: 1em; /* Ajustamos el tamaño de la fuente de la cuota */
-    }
-
-    input[type="number"] {
-        padding: 6px; /* Ajustamos el padding */
-        font-size: 0.9em; /* Ajustamos el tamaño de la fuente */
-    }
-
-    button {
-        padding: 8px; /* Ajustamos el padding */
-        font-size: 0.95em; /* Ajustamos el tamaño de la fuente */
-    }
-}
+    transition: background-color

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario para Crear Partidos</title>
+  <link rel="stylesheet" href="formulario-admin.css">
+  <script type="module" src="formulario-admin.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="center-content">
+        <a href="../admin.html">
+          <h1><span class="bet">Bet</span><span class="numero">2000</span> - Formulario</h1>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main>
+    <section class="crear-partido">
+      <div id="form-container">
+        <h2>Crear Partido</h2>
+        <form id="form-nuevo-partido">
+          <!-- Sección de Partido -->
+          <div class="form-group">
+            <h3 onclick="toggleSection('partido-section', this)">Partido</h3>
+            <div id="partido-section" class="collapsible">
+              <label for="fecha">Fecha:</label>
+              <input type="date" id="fecha" name="fecha" required>
+
+              <label for="hora">Hora:</label>
+              <input type="time" id="hora" name="hora" required>
+
+              <label for="equipo1">Equipo 1:</label>
+              <input type="text" id="equipo1" name="equipo1" required>
+
+              <label for="equipo2">Equipo 2:</label>
+              <input type="text" id="equipo2" name="equipo2" required>
+
+              <label for="cuota1">Cuota Equipo 1:</label>
+              <input type="number" id="cuota1" name="cuota1" step="0.01" required>
+
+              <label for="cuotaEmpate">Cuota Empate:</label>
+              <input type="number" id="cuotaEmpate" name="cuotaEmpate" step="0.01" required>
+
+              <label for="cuota2">Cuota Equipo 2:</label>
+              <input type="number" id="cuota2" name="cuota2" step="0.01" required>
+            </div>
+          </div>
+
+          <!-- Sección de Apuestas Comunes -->
+          <div class="form-group">
+            <h3 onclick="toggleSection('apuestas-section', this)">Apuestas Comunes</h3>
+            <div id="apuestas-section" class="collapsible">
+              <div class="apuesta-opcional">
+                <input type="checkbox" id="ambos-marcan" name="ambos-marcan">
+                <label for="ambos-marcan">Ambos Marcan</label>
+                <div class="opciones">
+                  <label for="cuotaSi">Sí:</label>
+                  <input type="number" id="cuotaSi" name="cuotaSi" step="0.01" disabled>
+                  <label for="cuotaNo">No:</label>
+                  <input type="number" id="cuotaNo" name="cuotaNo" step="0.01" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" id="crear-partido-submit" class="centered">Crear Partido</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
+  </footer>
+</body>
+</html>

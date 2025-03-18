@@ -14,137 +14,58 @@ body {
   padding: 0;
 }
 
-/* Cabecera */
-header {
-  background-color: #004d00; /* Verde oscuro */
-  color: white;
-  padding: 15px 0;
-  text-align: center;
-}
-
-header .header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-header .left-content {
-  flex: 1;
-  text-align: left;
-  padding-left: 20px;
-}
-
-header .center-content {
-  text-align: center;
-}
-
-header .right-content {
-  flex: 1;
-  text-align: right;
-  padding-right: 20px;
-}
-
-header a {
-  text-decoration: none;
-}
-
-header h1 {
-  font-size: 2.5em;
-  margin: 0;
-}
-
-header .bet {
-  color: #ffcc00; /* Amarillo */
-}
-
-header .numero {
-  color: white;
-}
-
-/* Navegación */
-nav {
-  margin-top: 10px;
-}
-
-#nav-user {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-#nav-guest {
-  display: flex;
-  justify-content: center;
-}
-
-nav button {
-  background-color: #008c56; /* Verde medio */
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  margin: 0 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1em;
-}
-
-nav button:hover {
-  background-color: #006c3f; /* Verde oscuro */
-}
-
-nav .logo {
-  width: 30px;
-  height: 30px;
-  margin-left: 10px;
-}
-
 /* Contenido de partidos */
 .partidos {
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.grupo-partidos {
+  margin-bottom: 30px;
+}
+
+.fecha-titulo {
+  background-color: #004d00;
+  color: white;
   padding: 10px;
-  background-color: #1e1e1e; /* Fondo más oscuro */
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.fecha-titulo h3 {
+  margin: 0;
+  font-size: 1.5em;
 }
 
 .partido {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #1f1f1f;
+  margin-bottom: 15px;
   padding: 15px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #444;
-  background-color: #2a2a2a; /* Fondo oscuro */
-  color: #e5e5e5; /* Texto claro */
-}
-
-.partido:last-child {
-  border-bottom: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .partido:hover {
-  background-color: #3b3b3b; /* Fondo un poco más claro cuando se pasa el ratón */
-  cursor: pointer;
+  background-color: #333;
 }
 
 .partido-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  justify-content: flex-end;
 }
 
-.fecha-hora {
-  font-size: 1.2em; /* Aumentar el tamaño de la fuente */
-  color: #ffcc00; /* Naranja, igual que el "VS" */
+.hora {
+  font-size: 1.2em;
+  color: #ffcc00; /* Naranja */
 }
 
 .equipos {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin: 15px 0;
 }
 
 .equipo {
@@ -152,49 +73,24 @@ nav .logo {
   align-items: center;
 }
 
-.escudo {
+.equipo img {
   width: 30px;
   height: 30px;
   margin-right: 10px;
 }
 
-.nombre-equipo {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
 .vs {
-  margin: 0 10px;
-  font-size: 1.2em;
-  color: #ffcc00; /* Naranja */
+  font-size: 1.5em;
+  text-align: center; /* Centrado del texto VS */
+  flex: 1;
 }
 
 .cuotas {
   display: flex;
-  align-items: center;
+  justify-content: space-around;
 }
 
 .cuota {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #008c56;
-  margin: 0 10px;
-  padding: 5px 10px;
-  border: 1px solid #008c56;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.cuota:hover {
-  background-color: #008c56;
-  color: white;
-}
-
-/* Pie de página */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #004d00;
-  color: white;
-  margin-top: 20px;
+  font-size: 1.1em;
+  color: #ffcc00; /* Naranja */
 }

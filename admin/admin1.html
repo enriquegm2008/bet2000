@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definir Resultado del Partido</title>
+  <link rel="stylesheet" href="admin1.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="left-content">
+        <span id="balance" class="balance">$1000</span>
+      </div>
+      <div class="center-content">
+        <a href="../index.html">
+          <h1><span class="bet">Bet</span><span class="numero">2000</span> - Admin</h1>
+        </a>
+      </div>
+      <div class="right-content">
+        <nav id="nav-user" style="display: none;">
+          <button id="btn-logout" class="small-button" onclick="logout()">Cerrar sesión</button>
+          <img src="../images/Logo.png" alt="Logo" class="logo">
+        </nav>
+        <nav id="nav-guest">
+          <button onclick="window.location.href='../registrarse.html'">Registrarse</button>
+          <button onclick="window.location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <section class="partido">
+      <h2 id="titulo-partido" class="titulo-partido"></h2>
+      <div class="equipos">
+        <div class="equipo">
+          <img src="../images/RealMadrid.png" alt="Real Madrid" class="escudo">
+          <span class="nombre-equipo">Real Madrid</span>
+        </div>
+        <div class="vs">VS</div>
+        <div class="equipo second-team">
+          <span class="nombre-equipo">Barcelona</span>
+          <img src="../images/Barcelona.png" alt="Barcelona" class="escudo">
+        </div>
+      </div>
+      
+      <!-- Apartado desplegable de Resultado Final -->
+      <div class="accordion">
+        <button id="resultado-final-button" class="accordion-button">
+          Resultado Final
+          <span class="flecha-abajo">&#9660;</span>
+        </button>
+        <div id="resultado-final-content" class="accordion-content">
+          <div class="resultado-final">
+            <button class="cuota-boton" id="cuota-equipo1-boton">
+              <span class="nombre-equipo" id="equipo1-nombre"></span>
+              <span class="cuota" id="cuota-equipo1"></span>
+            </button>
+            <button class="cuota-boton" id="cuota-empate-boton">
+              <span class="nombre-equipo">Empate</span>
+              <span class="cuota" id="cuota-empate"></span>
+            </button>
+            <button class="cuota-boton" id="cuota-equipo2-boton">
+              <span class="nombre-equipo" id="equipo2-nombre"></span>
+              <span class="cuota" id="cuota-equipo2"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="resultado-form" class="resultado-form" style="display: none;">
+        <button id="definir-resultado">Definir Resultado</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
+  </footer>
+  
+  <script src="admin1.js" type="module"></script>
+</body>
+</html>

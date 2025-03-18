@@ -1,165 +1,238 @@
 /* Reset de estilos */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #e5e5e5;
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Fondo más oscuro */
+  color: #e5e5e5; /* Texto claro */
+  margin: 0;
+  padding: 0;
 }
 
 /* Cabecera */
 header {
-    background-color: #006c3f;
-    color: white;
-    padding: 12px 0;
-    text-align: center;
+  background-color: #004d00; /* Verde oscuro */
+  color: white;
+  padding: 15px 0;
+  text-align: center;
 }
 
 header .header-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header .left-content {
+  flex: 1;
+  text-align: left;
+  padding-left: 20px;
+}
+
+header .center-content {
+  text-align: center;
+}
+
+header .right-content {
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
 }
 
 header a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
 }
 
 header h1 {
-    font-size: 2.5em;
-    margin: 0;
+  font-size: 2.5em;
+  margin: 0;
 }
 
 header .bet {
-    color: #f5a623;
+  color: #ffcc00; /* Amarillo */
 }
 
 header .numero {
-    color: white;
+  color: white;
 }
 
-/* Administrar Partidos */
-.administrar-partidos {
-    text-align: center;
-    padding: 20px;
+/* Navegación */
+nav {
+  margin-top: 10px;
 }
 
-#adicionar-btn {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px 0;
+#nav-user {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-#adicionar-btn:hover {
-    background-color: #218838;
+#nav-guest {
+  display: flex;
+  justify-content: center;
 }
 
-#form-container {
-    background-color: #333;
-    padding: 20px;
-    border-radius: 5px;
-    width: 80%;
-    margin: 0 auto 20px auto;
+nav button {
+  background-color: #008c56; /* Verde medio */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1em;
 }
 
-#form-container h2 {
-    margin-bottom: 20px;
+nav button:hover {
+  background-color: #006c3f; /* Verde oscuro */
 }
 
-.form-group {
-    margin-bottom: 15px;
+nav .logo {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+/* Contenido de partidos */
+.partidos {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.grupo-partidos {
+  margin-bottom: 30px;
 }
 
-/* Resultados */
-.resultados {
-    text-align: center;
-    padding: 20px;
+.fecha-titulo {
+  background-color: #004d00;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.fecha-titulo h3 {
+  margin: 0;
+  font-size: 1.5em;
 }
 
 .partido {
-    background-color: #333;
-    padding: 15px;
-    margin: 10px auto;
-    border-radius: 5px;
-    width: 80%;
+  background-color: #1f1f1f;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.partido .equipos {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.partido:hover {
+  background-color: #333;
+}
+
+.partido-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hora {
+  font-size: 1.2em;
+  color: #ffcc00; /* Naranja */
+}
+
+.eliminar-button {
+  background-color: #ff0000; /* Rojo */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.eliminar-button:hover {
+  background-color: #cc0000; /* Rojo oscuro */
+}
+
+.equipos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
 }
 
 .equipo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
 }
 
-.equipo input[type="radio"] {
-    margin-left: 10px;
+.equipo img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 }
 
-.escudo {
-    width: 50px;
-    height: 50px;
+.vs {
+  font-size: 1.5em;
+  text-align: center; /* Centrado del texto VS */
+  flex: 1;
 }
 
-.nombre-equipo {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
+.cuotas {
+  display: flex;
+  justify-content: space-around;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.cuota {
+  font-size: 1.1em;
+  color: #ffcc00; /* Naranja */
 }
 
-button:hover {
-    background-color: #218838;
+/* Botones */
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; /* Añadir margen superior e inferior */
 }
 
-.eliminar {
-    background-color: #dc3545;
+button[type="button"], #toggle-form, #close-form, #ir-formulario {
+  background-color: #121212; /* Fondo oscuro */
+  color: white;
+  border: 1px solid #ff9800;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
 }
 
-.eliminar:hover {
-    background-color: #c82333;
+button[type="button"]:hover, #toggle-form:hover, #close-form:hover, #ir-formulario:hover {
+  background-color: #1e1e1e; /* Fondo un poco más claro cuando se pasa el ratón */
 }
 
-/* Pie de página */
-footer {
-    text-align: center;
-    padding: 18px;
-    background-color: #006c3f;
-    color: white;
+button[type="button"].seleccionada, #toggle-form.seleccionada, #close-form.seleccionada, #ir-formulario.seleccionada {
+  background-color: #ff9800; /* Color de fondo cuando está seleccionado */
+  color: #fff; /* Color del texto cuando está seleccionado */
+}
+
+/* Estilo para centrar el botón antes de abrir el formulario */
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilo para alinear el botón a la izquierda cuando el formulario está abierto */
+.aligned-left {
+  margin-left: 0;
+  margin-right: auto;
 }

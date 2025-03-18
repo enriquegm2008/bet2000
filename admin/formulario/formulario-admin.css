@@ -1,0 +1,158 @@
+/* Reset de estilos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Fondo más oscuro */
+  color: #e5e5e5; /* Texto claro */
+  margin: 0;
+  padding: 0;
+}
+
+/* Cabecera */
+header {
+  background-color: #004d00; /* Verde oscuro */
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+}
+
+header .header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header .center-content {
+  text-align: center;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin: 0;
+}
+
+header .bet {
+  color: #ffcc00; /* Amarillo */
+}
+
+header .numero {
+  color: white;
+}
+
+/* Formularios */
+#form-container {
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  position: relative; /* Para que el botón de cerrar se posicione relativo a este contenedor */
+}
+
+#form-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  width: 100%; /* Aseguramos que ocupen todo el ancho */
+  text-align: center; /* Centramos el texto */
+  margin-bottom: 15px;
+}
+
+.form-group h3 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #ffcc00; /* Naranja */
+  cursor: pointer;
+  position: relative;
+}
+
+.form-group h3.active::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 4px;
+  background-color: #ffcc00;
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #e5e5e5;
+}
+
+.form-group input:focus {
+  outline: none;
+  border: 1px solid #ffcc00;
+}
+
+/* Secciones colapsables */
+.collapsible {
+  display: none;
+  width: 100%; /* Ocupan todo el ancho del formulario */
+  text-align: left; /* Alineamos el texto a la izquierda */
+}
+
+/* Botones */
+button[type="submit"] {
+  background-color: #121212; /* Fondo oscuro */
+  color: white;
+  border: 1px solid #ff9800;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+button[type="submit"]:hover {
+  background-color: #1e1e1e; /* Fondo un poco más claro cuando se pasa el ratón */
+}
+
+/* Estilo para centrar el botón antes de abrir el formulario */
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilo para alinear el botón a la izquierda cuando el formulario está abierto */
+.aligned-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}

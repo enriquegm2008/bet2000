@@ -5,30 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Realizar Apuesta</title>
   <link rel="stylesheet" href="apuesta.css">
+  <link rel="stylesheet" href="../hyf/header/header.css">
+  <link rel="stylesheet" href="../hyf/footer/footer.css">
+  <script defer src="../hyf/header/header.js"></script>
+  <script defer type="module" src="apuesta.js"></script>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <div class="left-content">
-        <span id="balance" class="balance">$1000</span>
-      </div>
-      <div class="center-content">
-        <a href="../index.html">
-          <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
-        </a>
-      </div>
-      <div class="right-content">
-        <nav id="nav-user" style="display: none;">
-          <button id="btn-logout" class="small-button" onclick="logout()">Cerrar sesión</button>
-          <img src="../images/Logo.png" alt="Logo" class="logo">
-        </nav>
-        <nav id="nav-guest">
-          <button onclick="window.location.href='../registrarse.html'">Registrarse</button>
-          <button onclick="window.location.href='../iniciar-sesion.html'">Iniciar sesión</button>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
   
   <main>
     <section class="partido">
@@ -38,23 +22,92 @@
           <img src="../images/RealMadrid.png" alt="Real Madrid" class="escudo">
           <span class="nombre-equipo">Real Madrid</span>
         </div>
+        <div class="vs">VS</div>
         <div class="equipo second-team">
           <span class="nombre-equipo">Barcelona</span>
           <img src="../images/Barcelona.png" alt="Barcelona" class="escudo">
         </div>
       </div>
-      <div class="cuotas-container" id="cuotas"></div>
-      <div id="apuesta-form" class="apuesta-form" style="display: none;">
-        <input type="number" id="monto-apuesta" placeholder="Ingrese el monto" min="1">
-        <button id="realizar-apuesta">Realizar Apuesta</button>
+      
+      <!-- Apartado desplegable de Resultado Final -->
+      <div class="accordion">
+        <button id="resultado-final-button" class="accordion-button">
+          Resultado Final
+          <span class="flecha-abajo">&#9660;</span>
+        </button>
+        <div id="resultado-final-content" class="accordion-content">
+          <div class="resultado-final">
+            <button class="cuota-boton" id="cuota-equipo1-boton">
+              <span class="nombre-equipo" id="equipo1-nombre"></span>
+              <span class="cuota" id="cuota-equipo1"></span>
+            </button>
+            <button class="cuota-boton" id="cuota-empate-boton">
+              <span class="nombre-equipo">Empate</span>
+              <span class="cuota" id="cuota-empate"></span>
+            </button>
+            <button class="cuota-boton" id="cuota-equipo2-boton">
+              <span class="nombre-equipo" id="equipo2-nombre"></span>
+              <span class="cuota" id="cuota-equipo2"></span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- Apartado de Apuestas -->
+      <div class="accordion">
+        <button id="apuestas-button" class="accordion-button">
+          Apuestas
+          <span class="flecha-abajo">&#9660;</span>
+        </button>
+        <div id="apuestas-content" class="accordion-content">
+          
+          <!-- Desplegable de Ambos Marcan -->
+          <div class="accordion">
+            <button id="ambos-marcan-button" class="accordion-button">
+              Ambos Marcan
+              <span class="flecha-abajo">&#9660;</span>
+            </button>
+            <div id="ambos-marcan-content" class="accordion-content">
+              <div class="resultado-final">
+                <button class="cuota-boton" id="cuota-si-boton">
+                  <span class="nombre-equipo">Sí</span>
+                  <span class="cuota" id="cuota-si"></span>
+                </button>
+                <button class="cuota-boton" id="cuota-no-boton">
+                  <span class="nombre-equipo">No</span>
+                  <span class="cuota" id="cuota-no"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
-  </footer>
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
 
-  <script src="apuesta.js" type="module"></script>
+  <script>
+    // Cargar el header dinámicamente
+    fetch('../hyf/header/header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+        // Inicializar el header después de cargarlo
+        initHeader();
+      })
+      .catch(error => console.error('Error al cargar el header:', error));
+
+    // Cargar el footer dinámicamente
+    fetch('../hyf/footer/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      })
+      .catch(error => console.error('Error al cargar el footer:', error));
+  </script>
 </body>
 </html>

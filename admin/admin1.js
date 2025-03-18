@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
@@ -34,10 +34,8 @@ onAuthStateChanged(auth, async (user) => {
   const navUser = document.getElementById('nav-user');
   const navGuest = document.getElementById('nav-guest');
   const balance = document.getElementById('balance');
-  const adminLink = document.getElementById('admin-link');
 
   if (user) {
-    console.log("Usuario autenticado:", user.uid);
     // Si el usuario está logueado
     navUser.style.display = 'flex';  // Mostrar el bloque de usuario
     navGuest.style.display = 'none'; // Ocultar el bloque de invitado
@@ -47,26 +45,14 @@ onAuthStateChanged(auth, async (user) => {
     const userDoc = await getDoc(userDocRef);
 
     if (userDoc.exists()) {
-      console.log("Documento de usuario encontrado:", userDoc.data());
       // Si el documento del usuario existe, mostramos el saldo almacenado
       document.getElementById('balance').innerText = `$${userDoc.data().saldo}`;
     } else {
-      console.log("Documento de usuario no encontrado, creando uno nuevo...");
       // Si no existe, creamos el documento con un saldo inicial de 1000
       await setDoc(userDocRef, { saldo: 1000 });
       document.getElementById('balance').innerText = `$1000`;
     }
-
-    // Verificar el rol del usuario y mostrar el enlace de administración si es necesario
-    const roleDocRef = doc(db, "roles", user.uid);
-    const roleDoc = await getDoc(roleDocRef);
-    if (roleDoc.exists() && roleDoc.data().role === "admin") {
-      adminLink.style.display = 'inline-block';
-    } else {
-      adminLink.style.display = 'none';
-    }
   } else {
-    console.log("Usuario no autenticado");
     // Si el usuario no está logueado
     navUser.style.display = 'none';  // Ocultar el bloque de usuario
     navGuest.style.display = 'flex'; // Mostrar el bloque de invitado (con botones de login y registro)
@@ -76,7 +62,6 @@ onAuthStateChanged(auth, async (user) => {
 // Obtener parámetros de la URL
 const params = new URLSearchParams(window.location.search);
 const partidoId = params.get("partido");
-console.log("ID del partido:", partidoId);
 
 // Obtener datos del partido desde Firestore
 async function cargarDatosPartido() {
@@ -85,40 +70,14 @@ async function cargarDatosPartido() {
 
   if (partidoDoc.exists()) {
     const partido = partidoDoc.data();
-    console.log("Datos del partido:", partido);
     document.getElementById("titulo-partido").innerText = `${partido.equipo1} vs ${partido.equipo2} - ${partido.fecha}`;
     
     // Asignar nombres y cuotas
     document.getElementById("equipo1-nombre").innerText = partido.equipo1;
-    document.getElementById("cuota-equipo1").innerText = parseFloat(partido.cuotas[0]).toFixed(2);
-    document.getElementById("cuota-empate").innerText = parseFloat(partido.cuotas[1]).toFixed(2);
+    document.getElementById("cuota-equipo1").innerText = partido.cuotas[0];
+    document.getElementById("cuota-empate").innerText = partido.cuotas[1];
     document.getElementById("equipo2-nombre").innerText = partido.equipo2;
-    document.getElementById("cuota-equipo2").innerText = parseFloat(partido.cuotas[2]).toFixed(2);
-
-    let hayApuestas = false;
-
-    // Asignar cuotas de apuestas comunes
-    if (partido.apuestasComunes && partido.apuestasComunes.ambosMarcan) {
-      document.getElementById("ambos-marcan-button").style.display = "block";
-      document.getElementById("ambos-marcan-content").style.display = "block";
-      document.getElementById("cuota-si").innerText = parseFloat(partido.apuestasComunes.ambosMarcan.si).toFixed(2);
-      document.getElementById("cuota-no").innerText = parseFloat(partido.apuestasComunes.ambosMarcan.no).toFixed(2);
-      hayApuestas = true;
-
-      // Mostrar las cuotas de "Ambos Marcan" en la consola
-      console.log("Cuotas de Ambos Marcan:");
-      console.log("Sí:", partido.apuestasComunes.ambosMarcan.si);
-      console.log("No:", partido.apuestasComunes.ambosMarcan.no);
-    } else {
-      document.getElementById("ambos-marcan-button").style.display = "none";
-      document.getElementById("ambos-marcan-content").style.display = "none";
-    }
-    
-    // Ocultar la sección de apuestas si no hay ninguna apuesta para desplegar
-    if (!hayApuestas) {
-      document.getElementById("apuestas-button").style.display = "none";
-      document.getElementById("apuestas-content").style.display = "none";
-    }
+    document.getElementById("cuota-equipo2").innerText = partido.cuotas[2];
     
     // Actualizar imágenes de escudos
     document.querySelector(".equipo:first-child .escudo").src = `../images/${partido.equipo1.replace(/\s+/g, '')}.png`;
@@ -135,10 +94,43 @@ async function cargarDatosPartido() {
 
 cargarDatosPartido();
 
+function mostrarFormularioResultado(botonSeleccionado) {
+  // Quitar la clase 'seleccionada' de cualquier botón previamente seleccionado
+  const botones = document.querySelectorAll(".cuota-boton");
+  botones.forEach(boton => boton.classList.remove("seleccionada"));
+
+  // Añadir la clase 'seleccionada' al botón actualmente seleccionado
+  botonSeleccionado.classList.add("seleccionada");
+
+  const form = document.getElementById("resultado-form");
+  form.style.display = "block";
+  document.getElementById("definir-resultado").onclick = () => definirResultado();
+}
+
+async function definirResultado() {
+  const resultado = document.querySelector(".cuota-boton.seleccionada .nombre-equipo").innerText;
+
+  if (!resultado) {
+    alert("Seleccione un resultado.");
+    return;
+  }
+
+  try {
+    const partidoRef = doc(db, "partidos", partidoId);
+    await updateDoc(partidoRef, { resultado });
+
+    alert(`Resultado definido: ${resultado}`);
+    window.location.href = "admin.html";
+  } catch (error) {
+    console.error("Error al definir el resultado:", error);
+    alert("Hubo un problema al definir el resultado.");
+  }
+}
+
 // Función para cerrar sesión
 function logout() {
   signOut(auth).then(() => {
-    alert("Has cerrado sesión.");
+    // Redirigir al usuario a la página de inicio después de cerrar sesión
     window.location.href = "../index.html";
   }).catch((error) => {
     console.error("Error al cerrar sesión:", error);
@@ -148,13 +140,15 @@ function logout() {
 // Inicializar el acordeón después de cargar el documento
 document.addEventListener('DOMContentLoaded', () => {
   toggleAccordion('resultado-final-button', 'resultado-final-content');
-  toggleAccordion('apuestas-button', 'apuestas-content');
-  toggleAccordion('ambos-marcan-button', 'ambos-marcan-content');
-});
 
-// Exponer la función logout y toggleDropdown globalmente para que sean accesibles desde el HTML
-window.logout = logout;
-window.toggleDropdown = function() {
-  const dropdownMenu = document.getElementById("dropdown-menu");
-  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-};
+  // Añadir event listeners a los botones de cuotas
+  document.getElementById('cuota-equipo1-boton').addEventListener('click', () => mostrarFormularioResultado(
+    document.getElementById('cuota-equipo1-boton')
+  ));
+  document.getElementById('cuota-empate-boton').addEventListener('click', () => mostrarFormularioResultado(
+    document.getElementById('cuota-empate-boton')
+  ));
+  document.getElementById('cuota-equipo2-boton').addEventListener('click', () => mostrarFormularioResultado(
+    document.getElementById('cuota-equipo2-boton')
+  ));
+});

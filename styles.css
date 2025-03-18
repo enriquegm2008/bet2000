@@ -14,186 +14,159 @@ body {
   padding: 0;
 }
 
-/* Cabecera */
-header {
-  background-color: #004d00; /* Verde oscuro */
-  color: white;
-  padding: 15px 0;
-  text-align: center;
-}
-
-header .header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header .left-content {
-  flex: 1;
-  text-align: left;
-}
-
-header .center-content {
-  text-align: center;
-}
-
-header .right-content {
-  flex: 1;
-  text-align: right;
-}
-
-header a {
-  text-decoration: none; /* Elimina el subrayado del enlace */
-}
-
-header h1 {
-  font-size: 3em;
-  margin: 0;
-}
-
-header .bet {
-  color: #ffcc00; /* Amarillo */
-}
-
-header .numero {
-  color: white;
-}
-
-/* Navegación */
-nav {
-  margin-top: 10px;
-}
-
-#nav-user {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-#nav-guest {
-  display: flex;
-  justify-content: center;
-}
-
-nav button {
-  background-color: #008c56; /* Verde medio */
-  color: white;
-  border: none;
-  padding: 6px 12px;  /* Tamaño reducido */
-  margin: 0 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1.1em;
-}
-
-nav button:hover {
-  background-color: #006c3f; /* Verde oscuro */
-}
-
-nav .logo {
-  width: 30px;
-  height: 30px;
-  margin-left: 10px;
-}
-
-/* Estilo para la foto de perfil */
-.profile-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-/* Botón de Cerrar sesión más pequeño */
-#btn-logout {
-  background-color: #008c56; /* Verde medio */
-  color: white;
-  padding: 4px 8px;  /* Tamaño reducido */
-  font-size: 0.8em;  /* Tamaño de fuente más pequeño */
-  margin-right: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: 1px solid #006c3f;  /* Borde delgado */
-}
-
-#btn-logout:hover {
-  background-color: #006c3f; /* Verde oscuro */
-}
-
-/* Botón de Administración */
-#admin-link {
-  background-color: #008c56; /* Verde medio */
-  color: white;
-  padding: 4px 8px;  /* Tamaño reducido */
-  font-size: 0.8em;  /* Tamaño de fuente más pequeño */
-  margin-right: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: 1px solid #006c3f;  /* Borde delgado */
-}
-
-#admin-link:hover {
-  background-color: #006c3f; /* Verde oscuro */
-}
-
 /* Contenido principal */
 .principal {
   text-align: center;
   padding: 20px;
 }
 
-.balon-container {
+.balon-container, .balon1-container {
+  position: relative;
   margin-top: 20px;
   display: inline-block;
-  padding: 20px;
+  padding: 10px;
   background-color: #333;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .balon {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s;
+}
+
+.balon-container:hover .balon, .balon1-container:hover .balon {
+  animation: bounce 1.5s;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.balon-container:active, .balon1-container:active {
+  transform: scale(0.95);
+}
+
+.balon-container.expanded, .balon1-container.expanded {
+  width: auto;
+  height: auto;
+  padding: 20px;
 }
 
 .options-container {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  justify-content: space-between;
+  padding: 5px;
 }
 
 .option {
-  background-color: #008c56; /* Verde medio */
+  background-color: #121212;
   color: white;
-  border: none;
-  padding: 10px 20px;
+  border: 1px solid #ff9800;
+  padding: 3px 6px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 1em;
+  font-size: 0.7em;
   text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .option:hover {
-  background-color: #006c3f; /* Verde oscuro */
+  background-color: #1e1e1e;
+  transform: scale(1.05);
 }
 
-/* Pie de página */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #004d00;
+.option:active {
+  transform: scale(0.95);
+}
+
+.option .nombre-equipo {
+  font-size: 0.7em;
+  font-weight: bold;
   color: white;
 }
 
-/* Ajustes para pantallas pequeñas */
-@media screen and (max-width: 768px) {
-  header h1 {
-    font-size: 2em; /* Reducimos aún más el tamaño del título en pantallas pequeñas */
+.option .cuota {
+  color: #ff9800;
+  margin-left: auto;
+  font-size: 0.7em;
+}
+
+/* Media Queries para ajustar el tamaño en dispositivos de escritorio */
+@media (min-width: 768px) {
+  .balon-container, .balon1-container {
+    padding: 20px;
   }
 
-  nav button {
-    padding: 8px; /* Reducimos el padding */
+  .balon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .balon-container.expanded, .balon1-container.expanded {
+    width: 200px;
+    height: 200px;
+  }
+
+  .options-container {
+    top: 150px; /* Ajustar la posición top para que estén debajo del balón */
+    padding: 10px;
+  }
+
+  .option {
+    padding: 6px 12px;
+    font-size: 1em;
+  }
+
+  .option .nombre-equipo, .option .cuota {
+    font-size: 1em;
+  }
+}
+
+/* Media Queries para ajustar el tamaño en dispositivos móviles */
+@media (max-width: 767px) {
+  .balon-container, .balon1-container {
+    padding: 10px;
+  }
+
+  .balon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .balon-container.expanded, .balon1-container.expanded {
+    width: 150px;
+    height: 120px; /* Reducir altura en versión móvil */
+  }
+
+  .options-container {
+    top: 70px;
+    padding: 5px;
+  }
+
+  .option {
+    padding: 2px 4px;
+    font-size: 0.6em;
+  }
+
+  .option .nombre-equipo, .option .cuota {
+    font-size: 0.6em;
   }
 }
