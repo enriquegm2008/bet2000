@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostar</title>
+    <link rel="stylesheet" href="apostar.css">
+    <link rel="stylesheet" href="../hyf/header/header.css">
+    <link rel="stylesheet" href="../hyf/footer/footer.css">
+    <script defer src="../hyf/header/header.js"></script>
+    <script defer type="module" src="apostar.js"></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    
+    <main>
+        <section class="partido">
+            <h2 id="titulo-partido" class="titulo-partido"></h2>
+            <div class="equipos">
+                <div class="equipo">
+                    <img id="escudo-equipo1" src="" alt="Equipo 1" class="escudo">
+                    <span id="nombre-equipo1" class="nombre-equipo"></span>
+                </div>
+                <!-- Se ha eliminado el "VS" -->
+                <div class="equipo second-team">
+                    <img id="escudo-equipo2" src="" alt="Equipo 2" class="escudo">
+                    <span id="nombre-equipo2" class="nombre-equipo"></span>
+                </div>
+            </div>
+
+            <!-- Pestañas de navegación -->
+            <div class="tabs">
+                <button class="tab-button" onclick="openTab(event, 'populares')">Populares</button>
+                <button class="tab-button" onclick="openTab(event, 'crear-apuesta')">Crear Apuesta</button>
+            </div>
+
+            <!-- Contenido de las pestañas -->
+            <div id="populares" class="tab-content">
+                <!-- Sección principal para el resultado final y las apuestas -->
+                <div class="seccion-principal">
+                    <!-- Bloque de Resultado Final -->
+                    <div class="accordion">
+                        <button id="resultado-final-button" class="accordion-button">
+                            Resultado Final
+                            <span class="flecha-abajo">&#9660;</span>
+                        </button>
+                        <div id="resultado-final-content" class="accordion-content">
+                            <div class="resultado-final-columns">
+                                <div class="resultado-final-column">
+                                    <button class="cuota-boton" id="cuota-equipo1-boton">
+                                        <span id="cuota-equipo1-nombre" class="nombre-equipo"></span>
+                                        <span id="cuota-equipo1" class="cuota"></span>
+                                    </button>
+                                </div>
+                                <div class="resultado-final-column">
+                                    <button class="cuota-boton" id="cuota-empate-boton">
+                                        <span class="nombre-equipo">Empate</span>
+                                        <span id="cuota-empate" class="cuota"></span>
+                                    </button>
+                                </div>
+                                <div class="resultado-final-column">
+                                    <button class="cuota-boton" id="cuota-equipo2-boton">
+                                        <span id="cuota-equipo2-nombre" class="nombre-equipo"></span>
+                                        <span id="cuota-equipo2" class="cuota"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloque de Apuestas -->
+                    <div class="accordion">
+                        <button id="apuestas-button" class="accordion-button">
+                            Apuestas
+                            <span class="flecha-abajo">&#9660;</span>
+                        </button>
+                        <div id="apuestas-content" class="accordion-content">
+                            
+                            <div class="accordion">
+                                <button id="ambos-marcan-button" class="accordion-button">
+                                    Ambos Marcan
+                                    <span class="flecha-abajo">&#9660;</span>
+                                </button>
+                                <div id="ambos-marcan-content" class="accordion-content">
+                                    <div class="resultado-final-columns">
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-si-boton">
+                                                <span class="nombre-equipo">Sí</span>
+                                                <span id="cuota-si" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-no-boton">
+                                                <span class="nombre-equipo">No</span>
+                                                <span id="cuota-no" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion">
+                                <button id="se-clasificara-button" class="accordion-button">
+                                    Se clasificará
+                                    <span class="flecha-abajo">&#9660;</span>
+                                </button>
+                                <div id="se-clasificara-content" class="accordion-content">
+                                    <div class="resultado-final-columns">
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-equipo1-clasificara-boton">
+                                                <span class="nombre-equipo" id="se-clasificara-equipo1-nombre"></span>
+                                                <span id="cuota-equipo1-clasificara" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-equipo2-clasificara-boton">
+                                                <span class="nombre-equipo" id="se-clasificara-equipo2-nombre"></span>
+                                                <span id="cuota-equipo2-clasificara" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion">
+                                <button id="mas-2-5-goles-button" class="accordion-button">
+                                    Más de 2.5 goles
+                                    <span class="flecha-abajo">&#9660;</span>
+                                </button>
+                                <div id="mas-2-5-goles-content" class="accordion-content">
+                                    <div class="resultado-final-columns">
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-mas-boton">
+                                                <span class="nombre-equipo">Sí</span>
+                                                <span id="cuota-mas" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-menos-boton">
+                                                <span class="nombre-equipo">No</span>
+                                                <span id="cuota-menos" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion">
+                                <button id="corners-button" class="accordion-button">
+                                    Córners
+                                    <span class="flecha-abajo">&#9660;</span>
+                                </button>
+                                <div id="corners-content" class="accordion-content">
+                                    <div class="resultado-final-columns">
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-menos10-boton">
+                                                <span class="nombre-equipo">Menos de 10</span>
+                                                <span id="cuota-menos10" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-exactamente10-boton">
+                                                <span class="nombre-equipo">Exactamente 10</span>
+                                                <span id="cuota-exactamente10" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                        <div class="resultado-final-column">
+                                            <button class="cuota-boton" id="cuota-mas10-boton">
+                                                <span class="nombre-equipo">Más de 10</span>
+                                                <span id="cuota-mas10" class="cuota"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de la sección principal -->
+            </div>
+
+            <div id="crear-apuesta" class="tab-content" style="display:none;">
+                <!-- Contenido para Crear Apuesta -->
+                <form id="form-nueva-apuesta">
+                    <!-- Desplegable para seleccionar el partido -->
+                    <div class="form-group">
+                        <label for="seleccionar-partido">Seleccionar Partido:</label>
+                        <select id="seleccionar-partido" name="seleccionar-partido" required>
+                            <option value="" disabled selected>Seleccione un partido</option>
+                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                        </select>
+                    </div>
+
+                    <!-- Título de la tabla -->
+                    <div class="form-group">
+                        <h3>Resultado</h3>
+                    </div>
+                    <!-- Títulos de columnas -->
+                    <div class="form-group">
+                        <div class="column-titles">
+                            <div class="column-title"></div>
+                            <div class="column-title">Equipo 1</div>
+                            <div class="column-title">Empate</div>
+                            <div class="column-title">Equipo 2</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filas de la tabla -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="column">
+                                <h4>Encuentro</h4>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="equipo1-encuentro" name="equipo1-encuentro" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="empate-encuentro" name="empate-encuentro" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="equipo2-encuentro" name="equipo2-encuentro" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="column">
+                                <h4>1ª mitad</h4>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="equipo1-primera-mitad" name="equipo1-primera-mitad" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="empate-primera-mitad" name="empate-primera-mitad" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="equipo2-primera-mitad" name="equipo2-primera-mitad" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="column">
+                                <h4>2ª mitad</h4>
+                            </div>
+                            <div la="column">
+                                <input type="number" id="equipo1-segunda-mitad" name="equipo1-segunda-mitad" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="empate-segunda-mitad" name="empate-segunda-mitad" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="equipo2-segunda-mitad" name="equipo2-segunda-mitad" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="column">
+                                <h4>10 minutos</h4>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="equipo1-diez-minutos" name="equipo1-diez-minutos" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="empate-diez-minutos" name="empate-diez-minutos" step="0.01" required>
+                            </div>
+                            <div class="column">
+                                <input type="number" id="equipo2-diez-minutos" name="equipo2-diez-minutos" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="crear-apuesta-submit" class="centered">Crear Apuesta</button>
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Cargar el header dinámicamente
+        fetch('../hyf/header/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                // Inicializar el header después de cargarlo
+                initHeader();
+            })
+            .catch(error => console.error('Error al cargar el header:', error));
+
+        // Cargar el footer dinámicamente
+        fetch('../hyf/footer/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error al cargar el footer:', error));
+
+        // Función para abrir pestañas
+        function openTab(event, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+        }
+
+        // Inicializar la primera pestaña como activa
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelector('.tab-button').click();
+        });
+    </script>
+</body>
+</html>

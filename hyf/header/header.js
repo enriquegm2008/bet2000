@@ -18,45 +18,32 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Función para alternar el menú desplegable
-window.toggleDropdown = function() {
-    const dropdownMenu = document.getElementById("dropdown-menu");
-    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-};
+// Función para marcar el enlace activo en el header
+function markActiveLink() {
+  const currentPath = window.location.pathname;
+  const centerNavLinks = document.querySelectorAll(".center-nav a");
 
-// Función para alternar opciones
-window.toggleOptions = function(optionsId) {
-    const options = document.getElementById(optionsId);
-    const container = options.parentElement;
-
-    if (options.style.display === "none" || options.style.display === "") {
-        options.style.display = "flex";
-        container.classList.add("expanded");
+  centerNavLinks.forEach(link => {
+    if (link.getAttribute("href") === currentPath || link.getAttribute("href") === currentPath.split('/').pop()) {
+      link.classList.add("active");
     } else {
-        options.style.display = "none";
-        container.classList.remove("expanded");
+      link.classList.remove("active");
     }
-};
+  });
+}
 
-// Función para alternar el menú de invitados
-window.toggleGuestMenu = function() {
-    const guestMenu = document.getElementById("guest-menu");
-    guestMenu.style.display = guestMenu.style.display === "block" ? "none" : "block";
-};
-
-// Función para cerrar sesión
-window.logout = async function() {
-    try {
-        await signOut(auth);
-        alert("Has cerrado sesión.");
-        window.location.href = '/claves/iniciosesion/iniciar-sesion.html';
-    } catch (error) {
-        console.error("Error al cerrar sesión:", error);
-        alert("Error al cerrar sesión: " + error.message);
+// Función para formatear el balance a 2 decimales
+function formatearBalance() {
+  const balanceElement = document.getElementById("balance");
+  if (balanceElement) {
+    const number = parseFloat(balanceElement.innerText.replace('€', ''));
+    if (!isNaN(number)) {
+      balanceElement.innerText = `${number.toFixed(2)}€`;
     }
-};
+  }
+}
 
-// Inicializar el header
+// Función para inicializar el header
 function initHeader() {
     // Verificar estado de autenticación
     onAuthStateChanged(auth, async (user) => {
@@ -103,10 +90,71 @@ function initHeader() {
             const dropdowns = document.getElementsByClassName("dropdown-content");
             for (let i = 0; i < dropdowns.length; i++) {
                 const openDropdown = dropdowns[i];
-                if (openDropdown.style.display === "block") {
-                    openDropdown.style.display = "none";
+                if (openDropdown.classList.contains("show")) {
+                    openDropdown.classList.remove("show");
                 }
+            }
+
+            // Restaurar icono de tres barritas si el menú de invitados está abierto
+            const menuIcon = document.querySelector(".menu-icon");
+            if (menuIcon.innerHTML === "&#9660;") {
+                menuIcon.innerHTML = "&#9776;";
             }
         }
     };
+
+    // Marcar el enlace activo en el header después de inicializar el header
+    markActiveLink();
+
+    // Formatear el balance a 2 decimales después de inicializar el header
+    formatearBalance();
 }
+
+// Llamar a la función initHeader cuando la página haya cargado
+window.onload = initHeader;
+
+// Función para alternar el menú desplegable
+window.toggleDropdown = function() {
+    const dropdownMenu = document.getElementById("dropdown-menu");
+    dropdownMenu.classList.toggle("show");
+};
+
+// Función para alternar opciones
+window.toggleOptions = function(optionsId) {
+    const options = document.getElementById(optionsId);
+    const container = options.parentElement;
+
+    if (options.style.display === "none" || options.style.display === "") {
+        options.style.display = "flex";
+        container.classList.add("expanded");
+    } else {
+        options.style.display = "none";
+        container.classList.remove("expanded");
+    }
+};
+
+// Función para alternar el menú de invitados
+window.toggleGuestMenu = function() {
+    const guestMenu = document.getElementById("guest-menu");
+    const menuIcon = document.querySelector(".menu-icon");
+    
+    if (guestMenu.style.display === "block") {
+        guestMenu.classList.remove("show");
+        menuIcon.innerHTML = "&#9776;"; // Tres barritas
+    } else {
+        guestMenu.classList.add("show");
+        menuIcon.innerHTML = "&#9660;"; // Flecha hacia abajo
+    }
+};
+
+// Función para cerrar sesión
+window.logout = async function() {
+    try {
+        await signOut(auth);
+        alert("Has cerrado sesión.");
+        window.location.href = '/claves/iniciosesion/iniciar-sesion.html';
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+        alert("Error al cerrar sesión: " + error.message);
+    }
+};

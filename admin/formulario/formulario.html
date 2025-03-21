@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario para Crear Partidos y Apuestas</title>
+  <link rel="stylesheet" href="formulario.css">
+  <link rel="stylesheet" href="/hyf/header/header.css">
+  <link rel="stylesheet" href="/hyf/footer/footer.css">
+  <script type="module" src="formulario.js"></script>
+  <script defer src="/hyf/header/header.js"></script>
+  <script defer src="/hyf/footer/footer.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Contenido principal -->
+  <main>
+    <section class="crear-partido">
+      <div class="button-container">
+        <button class="form-button" onclick="showForm('form-crear-partido')">Crear Partido</button>
+        <button class="form-button" onclick="showForm('form-crear-apuesta')">Crear Apuesta</button>
+      </div>
+
+      <div id="form-crear-partido" class="form-container active">
+        <h2>Crear Partido</h2>
+        <form id="form-nuevo-partido">
+          <!-- Sección de Partido -->
+          <div class="form-group">
+            <h3 onclick="toggleSection('partido-section', this)">Partido</h3>
+            <div id="partido-section" class="collapsible">
+              <label for="fecha">Fecha:</label>
+              <input type="date" id="fecha" name="fecha" required>
+
+              <label for="hora">Hora:</label>
+              <input type="time" id="hora" name="hora" required>
+
+              <label for="equipo1">Equipo 1:</label>
+              <input type="text" id="equipo1" name="equipo1" required>
+
+              <label for="equipo2">Equipo 2:</label>
+              <input type="text" id="equipo2" name="equipo2" required>
+
+              <label for="cuota1">Cuota Equipo 1:</label>
+              <input type="number" id="cuota1" name="cuota1" step="0.01" required>
+
+              <label for="cuotaEmpate">Cuota Empate:</label>
+              <input type="number" id="cuotaEmpate" name="cuotaEmpate" step="0.01" required>
+
+              <label for="cuota2">Cuota Equipo 2:</label>
+              <input type="number" id="cuota2" name="cuota2" step="0.01" required>
+            </div>
+          </div>
+
+          <!-- Sección de Apuestas Comunes -->
+          <div class="form-group">
+            <h3 onclick="toggleSection('apuestas-section', this)">Apuestas Comunes</h3>
+            <div id="apuestas-section" class="collapsible">
+              <div class="apuesta-opcional">
+                <input type="checkbox" id="ambos-marcan" name="ambos-marcan">
+                <label for="ambos-marcan">Ambos Marcan</label>
+                <div class="opciones">
+                  <label for="cuotaSi">Sí:</label>
+                  <input type="number" id="cuotaSi" name="cuotaSi" step="0.01" disabled>
+                  <label for="cuotaNo">No:</label>
+                  <input type="number" id="cuotaNo" name="cuotaNo" step="0.01" disabled>
+                </div>
+              </div>
+              <div class="apuesta-opcional">
+                <input type="checkbox" id="se-clasificara" name="se-clasificara">
+                <label for="se-clasificara">Se clasificará</label>
+                <div class="opciones">
+                  <label for="cuotaEquipo1">Equipo 1:</label>
+                  <input type="number" id="cuotaEquipo1" name="cuotaEquipo1" step="0.01" disabled>
+                  <label for="cuotaEquipo2">Equipo 2:</label>
+                  <input type="number" id="cuotaEquipo2" name="cuotaEquipo2" step="0.01" disabled>
+                </div>
+              </div>
+              <div class="apuesta-opcional">
+                <input type="checkbox" id="mas-2-5-goles" name="mas-2-5-goles">
+                <label for="mas-2-5-goles">Más de 2.5 goles</label>
+                <div class="opciones">
+                  <label for="cuotaMas">Sí:</label>
+                  <input type="number" id="cuotaMas" name="cuotaMas" step="0.01" disabled>
+                  <label for="cuotaMenos">No:</label>
+                  <input type="number" id="cuotaMenos" name="cuotaMenos" step="0.01" disabled>
+                </div>
+              </div>
+              <div class="apuesta-opcional">
+                <input type="checkbox" id="corners" name="corners">
+                <label for="corners">Córners</label>
+                <div class="opciones">
+                  <label for="cuotaMenos10">Menos de 10:</label>
+                  <input type="number" id="cuotaMenos10" name="cuotaMenos10" step="0.01" disabled>
+                  <label for="cuotaExactamente10">Exactamente 10:</label>
+                  <input type="number" id="cuotaExactamente10" name="cuotaExactamente10" step="0.01" disabled>
+                  <label for="cuotaMas10">Más de 10:</label>
+                  <input type="number" id="cuotaMas10" name="cuotaMas10" step="0.01" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div id="form-crear-apuesta" class="form-container">
+        <h2>Crear Apuesta</h2>
+        <form id="form-nueva-apuesta">
+          <!-- Título de la tabla -->
+          <div class="form-group">
+            <h3>Resultado</h3>
+          </div>
+          <!-- Títulos de columnas -->
+          <div class="form-group">
+            <div class="column-titles">
+              <div class="column-title"></div>
+              <div class="column-title">Equipo 1</div>
+              <div class="column-title">Empate</div>
+              <div class="column-title">Equipo 2</div>
+            </div>
+          </div>
+          
+          <!-- Filas de la tabla -->
+          <div class="form-group">
+            <div class="row">
+              <div class="column">
+                <h4>Encuentro</h4>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo1-encuentro" name="equipo1-encuentro" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="empate-encuentro" name="empate-encuentro" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo2-encuentro" name="equipo2-encuentro" step="0.01" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="column">
+                <h4>1ª mitad</h4>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo1-primera-mitad" name="equipo1-primera-mitad" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="empate-primera-mitad" name="empate-primera-mitad" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo2-primera-mitad" name="equipo2-primera-mitad" step="0.01" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="column">
+                <h4>2ª mitad</h4>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo1-segunda-mitad" name="equipo1-segunda-mitad" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="empate-segunda-mitad" name="empate-segunda-mitad" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo2-segunda-mitad" name="equipo2-segunda-mitad" step="0.01" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="column">
+                <h4>10 minutos</h4>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo1-diez-minutos" name="equipo1-diez-minutos" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="empate-diez-minutos" name="empate-diez-minutos" step="0.01" required>
+              </div>
+              <div class="column">
+                <input type="number" id="equipo2-diez-minutos" name="equipo2-diez-minutos" step="0.01" required>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <button type="submit" id="submit-button" class="centered">Guardar</button>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    function showForm(formId) {
+      const forms = document.querySelectorAll('.form-container');
+      forms.forEach(form => {
+        form.classList.remove('active');
+      });
+      document.getElementById(formId).classList.add('active');
+    }
+
+    function toggleSection(sectionId, element) {
+      const sections = document.querySelectorAll('.collapsible');
+      const headers = document.querySelectorAll('.form-group h3');
+      sections.forEach(section => {
+        if (section.id !== sectionId) {
+          section.style.display = 'none';
+        }
+      });
+      headers.forEach(header => {
+        if (header !== element) {
+          header.classList.remove('active');
+        }
+      });
+      const section = document.getElementById(sectionId);
+      section.style.display = section.style.display === 'block' ? 'none' : 'block';
+      element.classList.toggle('active', section.style.display === 'block');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      loadHeader();
+      loadFooter();
+    });
+
+    function loadHeader() {
+      fetch("/hyf/header/header.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("header-placeholder").innerHTML = data;
+          initHeader(); // Inicializar el header una vez que esté cargado
+        })
+        .catch(error => console.error("Error al cargar el header:", error));
+    }
+
+    function loadFooter() {
+      fetch("/hyf/footer/footer.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        })
+        .catch(error => console.error("Error al cargar el footer:", error));
+    }
+  </script>
+</body>
+</html>

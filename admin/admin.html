@@ -5,49 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administrar Partidos</title>
   <link rel="stylesheet" href="admin.css">
-  <script type="module" src="admin.js"></script>
+  <link rel="stylesheet" href="/hyf/header/header.css">
+  <link rel="stylesheet" href="/hyf/footer/footer.css">
+  <link rel="stylesheet" href="../partidos.css"> <!-- Enlace al archivo partidos.css en la carpeta principal -->
+  <script defer type="module" src="admin.js"></script>
+  <script defer src="/hyf/header/header.js"></script>
+  <script defer src="/hyf/footer/footer.js"></script>
+  <script defer type="module" src="../partidos.js"></script> <!-- Enlace al archivo partidos.js en la carpeta principal -->
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <div class="header-content">
-      <div class="left-content">
-        <span id="balance" class="balance">$1000</span>
-      </div>
-      <div class="center-content">
-        <a href="../index.html">
-          <h1><span class="bet">Bet</span><span class="numero">2000</span> - Admin</h1>
-        </a>
-      </div>
-      <div class="right-content">
-        <nav id="nav-user" style="display: none;">
-          <button id="btn-logout" class="small-button" onclick="logout()">Cerrar sesión</button>
-          <img src="../images/Logo.png" alt="Logo" class="logo">
-        </nav>
-        <nav id="nav-guest">
-          <button onclick="window.location.href='../registrarse.html'">Registrarse</button>
-          <button onclick="window.location.href='../iniciar-sesion.html'">Iniciar sesión</button>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <div id="header-placeholder"></div>
 
   <!-- Contenido principal -->
   <main>
     <section class="administrar-partidos">
       <div class="buttons-container">
-        <button onclick="window.location.href='formulario/formulario-admin.html'" id="ir-formulario" class="centered">Ir al Formulario</button>
+        <button onclick="window.location.href='formulario/formulario.html'" id="ir-formulario" class="centered">Ir al Formulario</button>
       </div>
     </section>
 
     <section class="partidos">
       <h2>Partidos disponibles para definir resultados</h2>
+      <div class="matches-container"></div> <!-- Contenedor para los partidos -->
     </section>
   </main>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Bet2000 - Apuestas ficticias</p>
-  </footer>
+  <div id="footer-placeholder"></div>
 </body>
 </html>

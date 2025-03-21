@@ -20,7 +20,7 @@ body {
   padding: 20px;
 }
 
-.balon-container, .balon1-container {
+.balon-container, .balon1-container, .quiniela-container {
   position: relative;
   margin-top: 20px;
   display: inline-block;
@@ -37,7 +37,7 @@ body {
   transition: transform 0.3s;
 }
 
-.balon-container:hover .balon, .balon1-container:hover .balon {
+.balon-container:hover .balon, .balon1-container:hover .balon, .quiniela-container:hover .balon {
   animation: bounce 1.5s;
 }
 
@@ -53,65 +53,8 @@ body {
   }
 }
 
-.balon-container:active, .balon1-container:active {
-  transform: scale(0.95);
-}
-
-.balon-container.expanded, .balon1-container.expanded {
-  width: auto;
-  height: auto;
-  padding: 20px;
-}
-
-.options-container {
-  position: absolute;
-  top: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: none;
-  justify-content: space-between;
-  padding: 5px;
-}
-
-.option {
-  background-color: #121212;
-  color: white;
-  border: 1px solid #ff9800;
-  padding: 3px 6px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 0.7em;
-  text-align: center;
-  transition: background-color 0.3s, transform 0.3s;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.option:hover {
-  background-color: #1e1e1e;
-  transform: scale(1.05);
-}
-
-.option:active {
-  transform: scale(0.95);
-}
-
-.option .nombre-equipo {
-  font-size: 0.7em;
-  font-weight: bold;
-  color: white;
-}
-
-.option .cuota {
-  color: #ff9800;
-  margin-left: auto;
-  font-size: 0.7em;
-}
-
-/* Media Queries para ajustar el tamaño en dispositivos de escritorio */
 @media (min-width: 768px) {
-  .balon-container, .balon1-container {
+  .balon-container, .balon1-container, .quiniela-container {
     padding: 20px;
   }
 
@@ -119,54 +62,15 @@ body {
     width: 100px;
     height: 100px;
   }
-
-  .balon-container.expanded, .balon1-container.expanded {
-    width: 200px;
-    height: 200px;
-  }
-
-  .options-container {
-    top: 150px; /* Ajustar la posición top para que estén debajo del balón */
-    padding: 10px;
-  }
-
-  .option {
-    padding: 6px 12px;
-    font-size: 1em;
-  }
-
-  .option .nombre-equipo, .option .cuota {
-    font-size: 1em;
-  }
 }
 
-/* Media Queries para ajustar el tamaño en dispositivos móviles */
 @media (max-width: 767px) {
-  .balon-container, .balon1-container {
+  .balon-container, .balon1-container, .quiniela-container {
     padding: 10px;
   }
 
   .balon {
     width: 50px;
     height: 50px;
-  }
-
-  .balon-container.expanded, .balon1-container.expanded {
-    width: 150px;
-    height: 120px; /* Reducir altura en versión móvil */
-  }
-
-  .options-container {
-    top: 70px;
-    padding: 5px;
-  }
-
-  .option {
-    padding: 2px 4px;
-    font-size: 0.6em;
-  }
-
-  .option .nombre-equipo, .option .cuota {
-    font-size: 0.6em;
   }
 }

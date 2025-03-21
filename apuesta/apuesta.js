@@ -49,12 +49,12 @@ onAuthStateChanged(auth, async (user) => {
     if (userDoc.exists()) {
       console.log("Documento de usuario encontrado:", userDoc.data());
       // Si el documento del usuario existe, mostramos el saldo almacenado
-      document.getElementById('balance').innerText = `$${userDoc.data().saldo}`;
+      document.getElementById('balance').innerText = `${userDoc.data().saldo.toFixed(2)}€`;
     } else {
       console.log("Documento de usuario no encontrado, creando uno nuevo...");
       // Si no existe, creamos el documento con un saldo inicial de 1000
       await setDoc(userDocRef, { saldo: 1000 });
-      document.getElementById('balance').innerText = `$1000`;
+      document.getElementById('balance').innerText = `1000.00€`;
     }
 
     // Verificar el rol del usuario y mostrar el enlace de administración si es necesario
@@ -154,7 +154,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exponer la función logout y toggleDropdown globalmente para que sean accesibles desde el HTML
 window.logout = logout;
+
+// Función para alternar la visibilidad del menú desplegable del usuario autenticado
 window.toggleDropdown = function() {
   const dropdownMenu = document.getElementById("dropdown-menu");
-  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+  dropdownMenu.classList.toggle("show");
 };
+
+// Función para alternar la visibilidad del menú desplegable del invitado
+window.toggleGuestMenu = function() {
+  const guestMenu = document.getElementById("guest-menu");
+  const menuIcon = document.querySelector(".menu-icon");
+  
+  if (guestMenu.classList.contains("show")) {
+    guestMenu.classList.remove("show");
+    menuIcon.innerHTML = "&#9776;"; // Tres barritas
+  } else {
+    guestMenu.classList.add("show");
+    menuIcon.innerHTML = "&#9660;"; // Flecha hacia abajo
+  }
+};
+
+// Función para cargar el header y el footer
+document.addEventListener("DOMContentLoaded", function() {
+  loadHeader();
+  loadFooter();
+});
+
+function loadHeader() {
+  fetch("../hyf/header/header.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+      initHeader(); // Inicializar el header una vez que esté cargado
+    })
+    .catch(error => console.error("Error al cargar el header:", error));
+}
+
+function loadFooter() {
+  fetch("../hyf/footer/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error al cargar el footer:", error));
+}
+
+function initHeader() {
+  // Marcar el enlace activo en el header
+  const currentPath = window.location.pathname;
+  const centerNavLinks = document.querySelectorAll(".center-nav a");
+
+  centerNavLinks.forEach(link => {
+    if (link.getAttribute("href") === currentPath) {
+      link.classList.add("active");
+    }
+  });
+
+  // Exponer las funciones globalmente
+  window.toggleDropdown = function() {
+    const dropdownMenu = document.getElementById("dropdown-menu");
+    dropdownMenu.classList.toggle("show");
+  };
+
+  window.toggleGuestMenu = function() {
+    const guestMenu = document.getElementById("guest-menu");
+    const menuIcon = document.querySelector(".menu-icon");
+    
+    if (guestMenu.classList.contains("show")) {
+      guestMenu.classList.remove("show");
+      menuIcon.innerHTML = "&#9776;"; // Tres barritas
+    } else {
+      guestMenu.classList.add("show");
+      menuIcon.innerHTML = "&#9660;"; // Flecha hacia abajo
+    }
+  };
+}

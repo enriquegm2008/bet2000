@@ -1,0 +1,152 @@
+body {
+  background-color: #282828;
+  font-family: Arial, sans-serif;
+}
+
+.matches-container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #282828; /* Mismo color que el fondo del body */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #fff; /* Color blanco para el título "Partidos disponibles para definir resultados" */
+}
+
+.grupo-partidos {
+  margin-bottom: 20px;
+}
+
+.fecha-titulo {
+  background-color: #2c2c2c; /* Un poco más oscuro que el fondo de los equipos */
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px 5px 0 0; /* Bordes redondeados en la parte superior */
+  text-align: left;
+}
+
+.partido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #2c2c2c; /* Mismo color que la fecha */
+  padding: 15px 0;  /* Se ha aumentado el padding */
+  cursor: pointer;
+  background-color: #3d3d3d; /* Color más claro que la fecha */
+  color: #fff;
+  position: relative;
+  transition: background-color 0.3s; /* Transición suave para el cambio de color */
+}
+
+.partido:hover {
+  background-color: #505050; /* Nuevo color al pasar el ratón por encima */
+}
+
+.partido:last-child {
+  border-bottom: 1px solid #2c2c2c; /* Mismo color que la fecha */
+}
+
+.equipos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px;  /* Añadir margen */
+}
+
+.equipo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;  /* Reducir margen inferior */
+}
+
+.equipo .escudo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;  /* Aumentar margen derecho */
+}
+
+.equipo .nombre {
+  font-weight: bold;
+  color: #fff;
+}
+
+.hora {
+  margin-top: 10px;  /* Aumentar margen superior */
+  font-size: 14px;
+  color: #ccc;
+}
+
+.cuotas {
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+  margin: 0 auto;  /* Centrar las cuotas horizontalmente */
+  position: absolute;
+  right: 10px; /* Acercar más al borde derecho */
+}
+
+.cuota {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cuota span:first-child {
+  font-weight: bold;
+  color: #fff; /* Color blanco para los textos 1, X, 2 */
+  margin-bottom: 20px;  /* Aumentar aún más el margen inferior */
+}
+
+.cuota span:last-child {
+  color: #ff8c00; /* Color naranja para las cuotas */
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 600px) {
+  .matches-container {
+    padding: 10px;
+  }
+
+  .partido {
+    padding: 10px 0;
+  }
+
+  .equipos {
+    margin: 5px;
+  }
+
+  .equipo .escudo img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+
+  .equipo .nombre {
+    font-size: 12px;
+  }
+
+  .hora {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  .cuotas {
+    width: 150px;
+    right: 5px; /* Acercar más al borde derecho */
+  }
+
+  .cuota span:first-child {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+  .cuota span:last-child {
+    font-size: 12px;
+  }
+}

@@ -3,6 +3,7 @@ header {
   background-color: #004d00; /* Verde oscuro */
   color: white;
   padding: 15px 0;
+  position: relative; /* Aseguramos que el header tenga contexto de posición */
 }
 
 header .header-content {
@@ -22,6 +23,30 @@ header .center-content {
   text-align: center;
 }
 
+header .center-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+}
+
+header .center-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: color 0.3s;
+  padding: 5px 0; /* Añadido para espacio entre el texto y la barra */
+}
+
+header .center-nav a:hover {
+  color: #ffcc00; /* Amarillo */
+}
+
+header .center-nav a.active {
+  color: #ffcc00; /* Amarillo */
+  border-bottom: 2px solid #ffcc00; /* Barra amarilla debajo del enlace activo */
+}
+
 header .right-content {
   flex: 1;
   text-align: right;
@@ -37,6 +62,7 @@ header a {
 header h1 {
   font-size: 3em;
   margin: 0;
+  margin-left: 10px; /* Ajusta el margen izquierdo para alinear correctamente */
 }
 
 header .bet {
@@ -92,6 +118,7 @@ nav .logo {
   display: flex;
   align-items: center;
   color: white;
+  height: 40px; /* Asegurar que la altura sea igual a la del logo */
 }
 
 .dropdown {
@@ -109,6 +136,13 @@ nav .logo {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   overflow: hidden; /* Ocultar contenido excedente */
+  max-height: 0;
+  transition: max-height 0.5s ease-out; /* Transición suave */
+}
+
+/* Ajuste para que el menú aparezca más abajo del header */
+#guest-menu {
+  top: 50px; /* Ajustar esta distancia según sea necesario */
 }
 
 .dropdown-content a {
@@ -134,6 +168,12 @@ nav .logo {
   font-size: 1.2em;
 }
 
+.dropdown-content.show {
+  display: block;
+  max-height: 300px; /* Ajustar según el contenido del menú */
+  transition: max-height 0.5s ease-in;
+}
+
 /* Media Queries para ajustar el tamaño en dispositivos móviles */
 @media (max-width: 767px) {
   header h1 {
@@ -148,5 +188,14 @@ nav .logo {
 
   nav .logo {
     height: 40px;  /* Ajustar la altura del logo para que coincida con los botones */
+  }
+
+  header .center-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header .center-nav a {
+    font-size: 1em;
   }
 }

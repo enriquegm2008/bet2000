@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, collection, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBT3yANkLvpNicR0GIxXsV6kWM62tMeQFQ",
@@ -15,89 +15,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
-// Función para formatear solo la fecha (sin la hora)
-function formatearFechaSoloFecha(fecha) {
-    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    const date = new Date(fecha);
-    const dia = date.getDate();
-    const mes = meses[date.getMonth()];
-    return `${dia} ${mes}`;
-}
-
-// Función para formatear solo la hora
-function formatearFechaSoloHora(fecha) {
-    const date = new Date(fecha);
-    const hora = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
-    return `${hora}`;
-}
-
-// Función para agrupar los partidos por fecha
-function agruparPartidosPorFecha(partidos) {
-    const grupos = {};
-    partidos.forEach(partido => {
-        const fechaFormateada = formatearFechaSoloFecha(partido.fecha + 'T' + partido.hora);
-        if (!grupos[fechaFormateada]) {
-            grupos[fechaFormateada] = [];
-        }
-        grupos[fechaFormateada].push(partido);
-    });
-    return grupos;
-}
-
-// Función para cargar los partidos desde Firestore
-async function cargarPartidos() {
-    const listaPartidos = document.querySelector(".partidos");
-    listaPartidos.innerHTML = "";  // Limpiar la lista antes de cargar los partidos
-
-    const partidosSnapshot = await getDocs(collection(db, "partidos"));
-    const partidos = partidosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    
-    // Ordenar los partidos por fecha y hora
-    partidos.sort((a, b) => new Date(a.fecha + 'T' + a.hora) - new Date(b.fecha + 'T' + b.hora));
-
-    const partidosAgrupados = agruparPartidosPorFecha(partidos);
-
-    for (const fecha in partidosAgrupados) {
-        const grupoDiv = document.createElement("div");
-        grupoDiv.classList.add("grupo-partidos");
-
-        // Crear el título de la fecha
-        const fechaDiv = document.createElement("div");
-        fechaDiv.classList.add("fecha-titulo");
-        fechaDiv.innerHTML = `<h3>${fecha}</h3>`;  // Mostrar solo la fecha sin la hora
-        grupoDiv.appendChild(fechaDiv);
-
-        partidosAgrupados[fecha].forEach(partido => {
-            const partidoDiv = document.createElement("div");
-            partidoDiv.classList.add("partido");
-            partidoDiv.onclick = () => window.location.href = `apuesta/apuesta.html?partido=${partido.id}`;
-            partidoDiv.innerHTML = `
-                <div class="partido-header">
-                    <span class="hora">${formatearFechaSoloHora(partido.fecha + 'T' + partido.hora)}</span>
-                </div>
-                <div class="equipos">
-                    <div class="equipo">
-                        <img src="images/${partido.equipo1.replace(/\s+/g, '')}.png" alt="${partido.equipo1}" class="escudo">
-                        <span class="nombre-equipo">${partido.equipo1}</span>
-                    </div>
-                    <div class="equipo">
-                        <span class="nombre-equipo">${partido.equipo2}</span>
-                        <img src="images/${partido.equipo2.replace(/\s+/g, '')}.png" alt="${partido.equipo2}" class="escudo">
-                    </div>
-                </div>
-                <div class="cuotas">
-                    <span class="cuota">${partido.cuotas[0].toFixed(2)}</span>
-                    <span class="cuota">${partido.cuotas[1].toFixed(2)}</span>
-                    <span class="cuota">${partido.cuotas[2].toFixed(2)}</span>
-                </div>
-            `;
-            grupoDiv.appendChild(partidoDiv);
-        });
-
-        listaPartidos.appendChild(grupoDiv);
-    }
-}
 
 // Función para cerrar sesión
 function logout() {
@@ -126,10 +43,10 @@ onAuthStateChanged(auth, async (user) => {
             const userDoc = await getDoc(userDocRef);
 
             if (userDoc.exists()) {
-                balance.innerText = `$${userDoc.data().saldo}`;
+                balance.innerText = `${userDoc.data().saldo.toFixed(2)}€`;
             } else {
                 await setDoc(userDocRef, { saldo: 1000 });
-                balance.innerText = `$1000`;
+                balance.innerText = `1000.00€`;
             }
 
             const roleDocRef = doc(db, "roles", user.uid);
@@ -147,22 +64,90 @@ onAuthStateChanged(auth, async (user) => {
         navUser.style.display = 'none';
         navGuest.style.display = 'flex';
     }
-
-    // Cargar los partidos al iniciar sesión
-    cargarPartidos();
 });
 
 // Recargar los partidos cuando se crea uno nuevo desde admin.html
 window.addEventListener('storage', (event) => {
     if (event.key === 'reloadPartidos') {
-        cargarPartidos();
         window.localStorage.removeItem('reloadPartidos');
     }
 });
 
 // Exponer la función logout globalmente para que sea accesible desde el HTML
 window.logout = logout;
+
+// Función para alternar la visibilidad del menú desplegable del usuario autenticado
 window.toggleDropdown = function() {
     const dropdownMenu = document.getElementById("dropdown-menu");
-    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    dropdownMenu.classList.toggle("show");
 };
+
+// Función para alternar la visibilidad del menú desplegable del invitado
+window.toggleGuestMenu = function() {
+    const guestMenu = document.getElementById("guest-menu");
+    const menuIcon = document.querySelector(".menu-icon");
+    
+    if (guestMenu.classList.contains("show")) {
+        guestMenu.classList.remove("show");
+        menuIcon.innerHTML = "&#9776;"; // Tres barritas
+    } else {
+        guestMenu.classList.add("show");
+        menuIcon.innerHTML = "&#9660;"; // Flecha hacia abajo
+    }
+};
+
+// Esperar a que el header y footer se hayan cargado
+document.addEventListener("DOMContentLoaded", function() {
+  loadHeader();
+  loadFooter();
+});
+
+function loadHeader() {
+  fetch("hyf/header/header.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+      initHeader(); // Inicializar el header una vez que esté cargado
+    })
+    .catch(error => console.error("Error al cargar el header:", error));
+}
+
+function loadFooter() {
+  fetch("hyf/footer/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error al cargar el footer:", error));
+}
+
+function initHeader() {
+  // Marcar el enlace activo en el header
+  const currentPath = window.location.pathname;
+  const centerNavLinks = document.querySelectorAll(".center-nav a");
+
+  centerNavLinks.forEach(link => {
+    if (link.getAttribute("href") === currentPath) {
+      link.classList.add("active");
+    }
+  });
+
+  // Exponer las funciones globalmente
+  window.toggleDropdown = function() {
+    const dropdownMenu = document.getElementById("dropdown-menu");
+    dropdownMenu.classList.toggle("show");
+  };
+
+  window.toggleGuestMenu = function() {
+    const guestMenu = document.getElementById("guest-menu");
+    const menuIcon = document.querySelector(".menu-icon");
+    
+    if (guestMenu.classList.contains("show")) {
+      guestMenu.classList.remove("show");
+      menuIcon.innerHTML = "&#9776;"; // Tres barritas
+    } else {
+      guestMenu.classList.add("show");
+      menuIcon.innerHTML = "&#9660;"; // Flecha hacia abajo
+    }
+  };
+}

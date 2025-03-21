@@ -1,0 +1,26 @@
+body {
+  background-color: #121212; /* Fondo igual que las demás páginas */
+  font-family: Arial, sans-serif;
+  color: #e5e5e5;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  max-width: 90%; /* Usar un ancho máximo del 90% */
+  margin: 20px auto; /* Centrar horizontalmente */
+  padding: 20px;
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quiniela-title {
+  color: #ffcc00; /* Color amarillo para el título */
+  text-align: center;
+}
+
+.quiniela-description {
+  text-align: center;
+  font-size: 1.2em;
+}
