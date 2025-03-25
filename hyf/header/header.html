@@ -1,36 +1,3 @@
-<header>
-  <div class="header-content">
-    <div class="left-content">
-      <a href="/index.html">
-        <h1><span class="bet">Bet</span><span class="numero">2000</span></h1>
-      </a>
-    </div>
-    <div class="center-content">
-      <!-- De momento no pondremos nada aquí -->
-    </div>
-    <div class="right-content">
-      <nav id="nav-user" style="display: none;">
-        <span id="balance" class="balance">1000.00€</span>
-        <div class="dropdown">
-          <img src="./images/Logo.png" alt="Logo" class="logo" onclick="toggleDropdown()">
-          <div id="dropdown-menu" class="dropdown-content">
-            <a id="admin-link" style="display: none;" href="./admin/admin.html">Admin</a>
-            <a id="btn-logout" href="#" onclick="logout()">Cerrar sesión</a>
-          </div>
-        </div>
-      </nav>
-      <nav id="nav-guest">
-        <div class="menu-icon" onclick="toggleGuestMenu()">
-          &#9776; <!-- Unicode character for three horizontal bars -->
-        </div>
-        <div id="guest-menu" class="dropdown-content">
-          <a href="./claves/registro/registrarse.html">Registrarse</a>
-          <a href="./claves/iniciosesion/iniciar-sesion.html">Iniciar sesión</a>
-        </div>
-      </nav>
-    </div>
-  </div>
-</header>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -56,7 +23,7 @@
       </div>
       <div class="right-content">
         <nav id="nav-user" style="display: none;">
-          <span id="balance" class="balance">1000.00€</span>
+          <span class="saldo-label">Saldo:</span> <span id="balance" class="balance">1000.00€</span>
           <div class="dropdown">
             <img src="/images/Logo.png" alt="Logo" class="logo" onclick="toggleDropdown()">
             <div id="dropdown-menu" class="dropdown-content">
@@ -70,8 +37,8 @@
             &#9776; <!-- Unicode character for three horizontal bars -->
           </div>
           <div id="guest-menu" class="dropdown-content">
-            <a href="/claves/registro/registrarse.html">Registrarse</a>
-            <a href="/claves/iniciosesion/iniciar-sesion.html">Iniciar sesión</a>
+            <a href="claves/registro/registrarse.html">Registrarse</a>
+            <a href="claves/iniciosesion/iniciar-sesion.html">Iniciar sesión</a>
           </div>
         </nav>
       </div>

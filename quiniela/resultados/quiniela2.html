@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiniela Resultados</title>
+    <link rel="stylesheet" href="quiniela2.css">
+    <script defer type="module" src="quiniela2.js"></script>
+</head>
+<body>
+    <main>
+        <form id="quinielaForm">
+            <div class="select-container">
+                <label for="jornadaSelect">Seleccione la Jornada para ver los resultados:</label>
+                <select id="jornadaSelect">
+                    <option value="" selected>Selecciona una jornada</option>
+                    <!-- Opciones generadas dinámicamente por JavaScript -->
+                </select>
+            </div>
+
+            <div id="tableContainer" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="bloques">PARTIDOS</th>
+                            <th class="double-border" data-column="1">RESULTADOS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quinielaBody">
+                        <!-- Filas generadas dinámicamente por JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

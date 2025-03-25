@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario Quiniela</title>
+  <link rel="stylesheet" href="formularioq.css">
+  <link rel="stylesheet" href="/hyf/header/header.css">
+  <link rel="stylesheet" href="/hyf/footer/footer.css">
+  <script defer type="module" src="formularioq.js"></script>
+  <script defer type="module" src="/hyf/header/header.js"></script>
+  <script defer type="module" src="/hyf/footer/footer.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Contenido principal -->
+  <main>
+    <h1>Formulario Quiniela</h1>
+    <!-- Botón para crear quiniela -->
+    <div class="buttons-container">
+      <button id="crear-quiniela" class="centered">Crear Quiniela</button>
+    </div>
+
+    <!-- Formulario de creación de quiniela -->
+    <div id="formulario-container" class="hidden">
+      <form id="quiniela-form">
+        <h2>Quiniela</h2>
+        <div class="form-group">
+          <label for="jornada">Jornada:</label>
+          <input type="number" id="jornada" name="jornada" required>
+        </div>
+        <div class="form-group">
+          <label for="deadline">Fecha y Hora Límite:</label>
+          <input type="date" id="fecha" name="fecha" required>
+          <input type="time" id="hora" name="hora" required>
+        </div>
+        <h2>Partidos</h2>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 1</h3>
+          <div class="equipo">
+            <label for="equipo1-1">Equipo 1:</label>
+            <input type="text" id="equipo1-1" name="equipo1-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo1-2">Equipo 2:</label>
+            <input type="text" id="equipo1-2" name="equipo1-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 2</h3>
+          <div class="equipo">
+            <label for="equipo2-1">Equipo 1:</label>
+            <input type="text" id="equipo2-1" name="equipo2-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo2-2">Equipo 2:</label>
+            <input type="text" id="equipo2-2" name="equipo2-2" required>
+          </div>
+        </div>
+        <!-- Repetir para los 14 partidos -->
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 3</h3>
+          <div class="equipo">
+            <label for="equipo3-1">Equipo 1:</label>
+            <input type="text" id="equipo3-1" name="equipo3-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo3-2">Equipo 2:</label>
+            <input type="text" id="equipo3-2" name="equipo3-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 4</h3>
+          <div class="equipo">
+            <label for="equipo4-1">Equipo 1:</label>
+            <input type="text" id="equipo4-1" name="equipo4-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo4-2">Equipo 2:</label>
+            <input type="text" id="equipo4-2" name="equipo4-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 5</h3>
+          <div class="equipo">
+            <label for="equipo5-1">Equipo 1:</label>
+            <input type="text" id="equipo5-1" name="equipo5-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo5-2">Equipo 2:</label>
+            <input type="text" id="equipo5-2" name="equipo5-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 6</h3>
+          <div class="equipo">
+            <label for="equipo6-1">Equipo 1:</label>
+            <input type="text" id="equipo6-1" name="equipo6-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo6-2">Equipo 2:</label>
+            <input type="text" id="equipo6-2" name="equipo6-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 7</h3>
+          <div class="equipo">
+            <label for="equipo7-1">Equipo 1:</label>
+            <input type="text" id="equipo7-1" name="equipo7-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo7-2">Equipo 2:</label>
+            <input type="text" id="equipo7-2" name="equipo7-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 8</h3>
+          <div class="equipo">
+            <label for="equipo8-1">Equipo 1:</label>
+            <input type="text" id="equipo8-1" name="equipo8-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo8-2">Equipo 2:</label>
+            <input type="text" id="equipo8-2" name="equipo8-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 9</h3>
+          <div class="equipo">
+            <label for="equipo9-1">Equipo 1:</label>
+            <input type="text" id="equipo9-1" name="equipo9-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo9-2">Equipo 2:</label>
+            <input type="text" id="equipo9-2" name="equipo9-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 10</h3>
+          <div class="equipo">
+            <label for="equipo10-1">Equipo 1:</label>
+            <input type="text" id="equipo10-1" name="equipo10-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo10-2">Equipo 2:</label>
+            <input type="text" id="equipo10-2" name="equipo10-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 11</h3>
+          <div class="equipo">
+            <label for="equipo11-1">Equipo 1:</label>
+            <input type="text" id="equipo11-1" name="equipo11-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo11-2">Equipo 2:</label>
+            <input type="text" id="equipo11-2" name="equipo11-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 12</h3>
+          <div class="equipo">
+            <label for="equipo12-1">Equipo 1:</label>
+            <input type="text" id="equipo12-1" name="equipo12-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo12-2">Equipo 2:</label>
+            <input type="text" id="equipo12-2" name="equipo12-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 13</h3>
+          <div class="equipo">
+            <label for="equipo13-1">Equipo 1:</label>
+            <input type="text" id="equipo13-1" name="equipo13-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo13-2">Equipo 2:</label>
+            <input type="text" id="equipo13-2" name="equipo13-2" required>
+          </div>
+        </div>
+        <div class="form-group partido">
+          <h3 class="partido-title">Partido 14</h3>
+          <div class="equipo">
+            <label for="equipo14-1">Equipo 1:</label>
+            <input type="text" id="equipo14-1" name="equipo14-1" required>
+          </div>
+          <div class="equipo">
+            <label for="equipo14-2">Equipo 2:</label>
+            <input type="text" id="equipo14-2" name="equipo14-2" required>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button type="submit" id="submit-quiniela" class="centered">Crear Quiniela</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Botón para dar resultados -->
+    <div class="buttons-container">
+      <button id="dar-resultados" class="centered">Dar Resultados</button>
+    </div>
+
+    <!-- Formulario desplegable para dar resultados -->
+    <div id="resultados-container" class="hidden">
+      <form id="resultados-form">
+        <h2>Resultados Quiniela</h2>
+        <div class="form-group">
+          <label for="jornada-resultados">Jornada:</label>
+          <select id="jornada-resultados" name="jornada-resultados" required>
+            <option value="" selected disabled>Selecciona una jornada</option>
+            <!-- Opciones generadas dinámicamente por JavaScript -->
+          </select>
+        </div>
+        <!-- Campos del formulario para ingresar los resultados de los partidos -->
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 1</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado1_1" name="resultado1" value="1" required>
+            <label for="resultado1_1" class="radio-label">1</label>
+            <input type="radio" id="resultado1_X" name="resultado1" value="X" required>
+            <label for="resultado1_X" class="radio-label">X</label>
+            <input type="radio" id="resultado1_2" name="resultado1" value="2" required>
+            <label for="resultado1_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 2</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado2_1" name="resultado2" value="1" required>
+            <label for="resultado2_1" class="radio-label">1</label>
+            <input type="radio" id="resultado2_X" name="resultado2" value="X" required>
+            <label for="resultado2_X" class="radio-label">X</label>
+            <input type="radio" id="resultado2_2" name="resultado2" value="2" required>
+            <label for="resultado2_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 3</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado3_1" name="resultado3" value="1" required>
+            <label for="resultado3_1" class="radio-label">1</label>
+            <input type="radio" id="resultado3_X" name="resultado3" value="X" required>
+            <label for="resultado3_X" class="radio-label">X</label>
+            <input type="radio" id="resultado3_2" name="resultado3" value="2" required>
+            <label for="resultado3_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 4</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado4_1" name="resultado4" value="1" required>
+            <label for="resultado4_1" class="radio-label">1</label>
+            <input type="radio" id="resultado4_X" name="resultado4" value="X" required>
+            <label for="resultado4_X" class="radio-label">X</label>
+            <input type="radio" id="resultado4_2" name="resultado4" value="2" required>
+            <label for="resultado4_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 5</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado5_1" name="resultado5" value="1" required>
+            <label for="resultado5_1" class="radio-label">1</label>
+            <input type="radio" id="resultado5_X" name="resultado5" value="X" required>
+            <label for="resultado5_X" class="radio-label">X</label>
+            <input type="radio" id="resultado5_2" name="resultado5" value="2" required>
+            <label for="resultado5_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 6</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado6_1" name="resultado6" value="1" required>
+            <label for="resultado6_1" class="radio-label">1</label>
+            <input type="radio" id="resultado6_X" name="resultado6" value="X" required>
+            <label for="resultado6_X" class="radio-label">X</label>
+            <input type="radio" id="resultado6_2" name="resultado6" value="2" required>
+            <label for="resultado6_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 7</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado7_1" name="resultado7" value="1" required>
+            <label for="resultado7_1" class="radio-label">1</label>
+            <input type="radio" id="resultado7_X" name="resultado7" value="X" required>
+            <label for="resultado7_X" class="radio-label">X</label>
+            <input type="radio" id="resultado7_2" name="resultado7" value="2" required>
+            <label for="resultado7_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 8</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado8_1" name="resultado8" value="1" required>
+            <label for="resultado8_1" class="radio-label">1</label>
+            <input type="radio" id="resultado8_X" name="resultado8" value="X" required>
+            <label for="resultado8_X" class="radio-label">X</label>
+            <input type="radio" id="resultado8_2" name="resultado8" value="2" required>
+            <label for="resultado8_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 9</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado9_1" name="resultado9" value="1" required>
+            <label for="resultado9_1" class="radio-label">1</label>
+            <input type="radio" id="resultado9_X" name="resultado9" value="X" required>
+            <label for="resultado9_X" class="radio-label">X</label>
+            <input type="radio" id="resultado9_2" name="resultado9" value="2" required>
+            <label for="resultado9_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 10</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado10_1" name="resultado10" value="1" required>
+            <label for="resultado10_1" class="radio-label">1</label>
+            <input type="radio" id="resultado10_X" name="resultado10" value="X" required>
+            <label for="resultado10_X" class="radio-label">X</label>
+            <input type="radio" id="resultado10_2" name="resultado10" value="2" required>
+            <label for="resultado10_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 11</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado11_1" name="resultado11" value="1" required>
+            <label for="resultado11_1" class="radio-label">1</label>
+            <input type="radio" id="resultado11_X" name="resultado11" value="X" required>
+            <label for="resultado11_X" class="radio-label">X</label>
+            <input type="radio" id="resultado11_2" name="resultado11" value="2" required>
+            <label for="resultado11_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 12</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado12_1" name="resultado12" value="1" required>
+            <label for="resultado12_1" class="radio-label">1</label>
+            <input type="radio" id="resultado12_X" name="resultado12" value="X" required>
+            <label for="resultado12_X" class="radio-label">X</label>
+            <input type="radio" id="resultado12_2" name="resultado12" value="2" required>
+            <label for="resultado12_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 13</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado13_1" name="resultado13" value="1" required>
+            <label for="resultado13_1" class="radio-label">1</label>
+            <input type="radio" id="resultado13_X" name="resultado13" value="X" required>
+            <label for="resultado13_X" class="radio-label">X</label>
+            <input type="radio" id="resultado13_2" name="resultado13" value="2" required>
+            <label for="resultado13_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="form-group resultado">
+          <h3 class="resultado-title">Partido 14</h3>
+          <div class="equipo">
+            <input type="radio" id="resultado14_1" name="resultado14" value="1" required>
+            <label for="resultado14_1" class="radio-label">1</label>
+            <input type="radio" id="resultado14_X" name="resultado14" value="X" required>
+            <label for="resultado14_X" class="radio-label">X</label>
+            <input type="radio" id="resultado14_2" name="resultado14" value="2" required>
+            <label for="resultado14_2" class="radio-label">2</label>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button type="submit" id="submit-resultados" class="centered">Guardar Resultados</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 body {
-  background-color: #282828;
+  background-color: #121212;
   font-family: Arial, sans-serif;
 }
 
@@ -16,6 +16,7 @@ body {
 h2 {
   text-align: center;
   color: #fff; /* Color blanco para el título "Partidos disponibles para definir resultados" */
+  padding-bottom: 10px;
 }
 
 .grupo-partidos {

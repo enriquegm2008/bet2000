@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device=width, initial-scale=1.0">
     <title>Apostar</title>
     <link rel="stylesheet" href="apostar.css">
     <link rel="stylesheet" href="../hyf/header/header.css">
@@ -242,7 +242,7 @@
                             <div class="column">
                                 <h4>2ª mitad</h4>
                             </div>
-                            <div la="column">
+                            <div class="column">
                                 <input type="number" id="equipo1-segunda-mitad" name="equipo1-segunda-mitad" step="0.01" required>
                             </div>
                             <div class="column">
@@ -277,6 +277,24 @@
     </main>
 
     <div id="footer-placeholder"></div>
+    
+    <!-- Menú emergente -->
+    <div id="menu-emergente" class="menu-emergente">
+        <button class="menu-emergente-cerrar" onclick="cerrarMenuEmergente()">X</button>
+        <div id="menu-emergente-content" class="menu-emergente-content">
+            <div id="detalle-apuesta" class="detalle-apuesta"></div>
+            <div class="menu-emergente-inputs">
+                <div class="input-row">
+                    <label for="importe-apuesta">Importe:</label>
+                    <input type="number" id="importe-apuesta" placeholder="0.00 €" oninput="calcularGanancias()">
+                </div>
+                <button id="realizar-apuesta" onclick="realizarApuesta()">
+                    Realizar Apuesta
+                    <span id="ganancias-potenciales"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Cargar el header dinámicamente

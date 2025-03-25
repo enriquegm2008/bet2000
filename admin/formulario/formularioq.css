@@ -1,0 +1,129 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Fondo igual que el de todas las páginas */
+  color: #e5e5e5; /* Texto claro */
+  margin: 0;
+  padding: 10px;
+  font-size: 14px;
+}
+
+h1, h2, h3 {
+  text-align: center;
+  color: #e5e5e5;
+}
+
+form {
+  background-color: #1e1e1e; /* Fondo más claro que el fondo de la página */
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.form-group label {
+  display: inline-block;
+  width: 100px;
+  color: #e5e5e5;
+}
+
+.form-group input {
+  flex: 1;
+  padding: 8px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.partido, .resultado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.partido-title, .resultado-title {
+  margin-right: 20px;
+}
+
+.equipo {
+  flex: 1;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.equipo:last-child {
+  margin-right: 0;
+}
+
+.equipo label {
+  margin-bottom: 5px;
+  color: #e5e5e5;
+}
+
+.equipo input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Botones */
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+button#crear-quiniela, button#submit-quiniela, button#dar-resultados, button#submit-resultados {
+  background-color: #121212; /* Fondo oscuro */
+  color: white;
+  border: 1px solid #ff9800;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px; /* Margen adicional para separar botones */
+}
+
+button#crear-quiniela:hover, button#submit-quiniela:hover, button#dar-resultados:hover, button#submit-resultados:hover {
+  background-color: #1e1e1e; /* Fondo un poco más claro cuando se pasa el ratón */
+}
+
+/* Formularios desplegables */
+#formulario-container.hidden, #resultados-container.hidden {
+  display: none;
+}
+
+/* Estilos para las casillas cuadradas */
+.radio-label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #e5e5e5;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + .radio-label {
+  background-color: #09ff00;
+  color: #121212;
+}

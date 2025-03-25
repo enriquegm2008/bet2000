@@ -107,7 +107,7 @@ nav .logo {
   margin: 20px 0; /* Añadir margen superior e inferior */
 }
 
-button[type="button"], #toggle-form, #close-form, #ir-formulario {
+button[type="button"], #toggle-form, #close-form, #ir-formulario, #ir-formulario-quiniela {
   background-color: #121212; /* Fondo oscuro */
   color: white;
   border: 1px solid #ff9800;
@@ -120,13 +120,14 @@ button[type="button"], #toggle-form, #close-form, #ir-formulario {
   align-items: center;
   width: 100%;
   max-width: 300px;
+  margin: 10px; /* Margen adicional para separar botones */
 }
 
-button[type="button"]:hover, #toggle-form:hover, #close-form:hover, #ir-formulario:hover {
+button[type="button"]:hover, #toggle-form:hover, #close-form:hover, #ir-formulario:hover, #ir-formulario-quiniela:hover {
   background-color: #1e1e1e; /* Fondo un poco más claro cuando se pasa el ratón */
 }
 
-button[type="button"].seleccionada, #toggle-form.seleccionada, #close-form.seleccionada, #ir-formulario.seleccionada {
+button[type="button"].seleccionada, #toggle-form.seleccionada, #close-form.seleccionada, #ir-formulario.seleccionada, #ir-formulario-quiniela.seleccionada {
   background-color: #ff9800; /* Color de fondo cuando está seleccionado */
   color: #fff; /* Color del texto cuando está seleccionado */
 }

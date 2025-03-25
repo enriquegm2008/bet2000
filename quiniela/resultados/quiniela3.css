@@ -1,0 +1,322 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+}
+
+main {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 1400px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.select-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.select-container label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.select-container select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    width: 200px; /* Ancho del select */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para el select */
+}
+
+/* Añadir espacio entre el select y la tabla */
+#tableContainer {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+th {
+    background-color: #ff1b1bc0;
+    color: #fff;
+}
+
+th.bloques {
+    text-align: right;
+    background-color: #fff;
+    color: #000;
+    position: sticky;
+    left: 0;
+}
+
+.equipo {
+    text-align: left;
+    padding-left: 8px;
+    width: 200px;
+    background-color: #fff;
+    color: #0000ff;
+    text-transform: uppercase;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid #ddd;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.label-container .dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #888;
+    margin: 0 5px;
+}
+
+.partido-num {
+    font-weight: bold;
+}
+
+label {
+    cursor: pointer;
+    font-size: 12px;
+    position: relative;
+    color: red;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin: 1px;
+    position: relative;
+}
+
+input[type="radio"]:checked + label::after {
+    content: "✖";
+    color: rgb(0, 0, 0);
+    font-size: 24px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #218838;
+    border-color: #000;
+}
+
+td:nth-child(odd):not(.equipo) {
+    background-color: #ff1b1bc0;
+}
+
+tr.border-strong {
+    border-bottom: 3px solid red;
+}
+
+tr.border-strong td {
+    border-bottom: 3px solid red;
+}
+
+.double-border {
+    position: relative;
+}
+
+.double-border::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-top: 4px double #ff0000;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+}
+
+thead tr:first-child th {
+    border: none;
+    background-color: transparent;
+}
+
+/* Botones estilo "Crear Quiniela" */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+button.centered, #navigationButtons button {
+    background-color: #121212;
+    color: white;
+    border: 1px solid #ff9800;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px;
+}
+
+button.centered:hover, #navigationButtons button:hover {
+    background-color: #1e1e1e;
+}
+
+.navigationButtons {
+    display: none;
+    justify-content: space-between;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 600px) {
+    body {
+        font-size: 8px;
+    }
+
+    main {
+        padding: 5px;
+    }
+
+    th, td {
+        padding: 3px;
+        font-size: 8px;
+    }
+
+    .equipo {
+        padding-left: 3px;
+        width: 100px;
+    }
+
+    input[type="radio"] + label {
+        width: 12px;
+        height: 12px;
+        line-height: 12px;
+        font-size: 6px;
+    }
+
+    input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+
+    button {
+        padding: 6px;
+        font-size: 10px;
+    }
+
+    /* Hide all columns except the first one by default */
+    th[data-column], td[data-column] {
+        display: none;
+    }
+
+    th[data-column="1"], td[data-column="1"] {
+        display: table-cell;
+    }
+
+    #navigationButtons {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+}
+
+/* Media Queries for Desktop */
+@media (min-width: 601px) {
+    #navigationButtons {
+        display: none;
+    }
+
+    th[data-column], td[data-column] {
+        display: table-cell !important;
+    }
+}
+
+.quiniela-title {
+    font-size: 2em;
+    text-align: center;
+}
+
+.quiniela-deadline {
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: yellow;
+}
+
+.countdown {
+    font-size: 1.2em;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el mensaje de éxito o error */
+#mensaje {
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#mensaje.success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+#mensaje.error {
+    background-color: #dc3545;
+    color: #fff;
+}

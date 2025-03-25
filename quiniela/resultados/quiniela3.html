@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiniela Deportiva</title>
+    <link rel="stylesheet" href="quiniela3.css">
+    <link rel="stylesheet" href="/hyf/header/header.css">
+    <link rel="stylesheet" href="/hyf/footer/footer.css">
+    <script defer type="module" src="quiniela3.js"></script>
+    <script defer src="/hyf/header/header.js"></script>
+    <script defer src="/hyf/footer/footer.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Contenido principal -->
+    <main>
+        <form id="quinielaForm">
+            <div class="select-container">
+                <label for="jornadaSelect">Seleccione la Jornada apostada:</label>
+                <select id="jornadaSelect">
+                    <option value="" selected>Selecciona una jornada</option>
+                    <!-- Opciones generadas dinámicamente por JavaScript -->
+                </select>
+            </div>
+
+            <div id="tableContainer">
+                <div id="navigationButtons" style="display: none;">
+                    <button type="button" id="prevColumnBtn" disabled>&lt; Anterior</button>
+                    <button type="button" id="nextColumnBtn">Siguiente &gt;</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr id="columnHeaders">
+                            <th class="bloques"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="quinielaBody">
+                        <!-- Filas generadas dinámicamente por JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+        <!-- Fecha límite y cuenta atrás -->
+        <p class="quiniela-deadline" style="display: none;">Fecha límite para participar: <span id="deadline"></span></p>
+        <p class="countdown" style="display: none;">Tiempo restante: <span id="countdown"></span></p>
+
+        <!-- Mensaje de éxito o error -->
+        <div id="mensaje" style="display: none;"></div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

@@ -1,25 +1,121 @@
+/* Estilos para ocultar la tabla */
+.hidden {
+  display: none;
+}
+
 /* Reset de estilos */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Estilos generales */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #121212; /* Fondo más oscuro */
-    color: #e5e5e5; /* Texto claro */
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Contenido principal */
-  main {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Fondo más oscuro */
+  color: #e5e5e5; /* Texto claro */
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenido principal */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+  background-color: #121212; /* Fondo más oscuro */
+}
+
+.apuesta {
+  padding: 0;
+  border-radius: 5px;
+  text-align: left;
+  flex: 1 1 100%; /* Ajustar el ancho de las apuestas al 100% */
+  max-width: 250px; /* Ajustar el ancho máximo */
+  border: 2px solid transparent; /* Borde transparente por defecto */
+}
+
+.contenido-con-fondo {
+  background-color: #222; /* Fondo para el contenido */
+  padding: 10px;
+  border: 2px solid #ffcc00; /* Borde naranja */
+  border-radius: 5px 5px 0 0; /* Borde redondeado en la parte superior */
+  width: 100%; /* Ajustar el ancho al 100% */
+}
+
+.quiniela-img {
+  width: 50%; /* Reducir el tamaño de la imagen */
+  height: auto;
+  margin: 0 auto 10px; /* Centrar la imagen horizontalmente y añadir margen inferior */
+  display: block; /* Asegurar que la imagen se comporte como un bloque */
+  cursor: pointer; /* Cambiar el cursor cuando se pasa sobre la imagen */
+}
+
+.fecha-precio {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.columnas-texto {
+  font-size: 14px;
+  color: #ffcc00;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: transparent; /* Fondo transparente para la columna */
+}
+
+.resultados-table-container {
+  border: 2px solid #ffcc00; /* Borde naranja */
+  border-top: none; /* Eliminar borde superior para encajar con el contenedor superior */
+  border-radius: 0 0 5px 5px; /* Borde redondeado en la parte inferior */
+  padding: 10px;
+  background-color: #222; /* Fondo para la tabla */
+  margin-top: -2px; /* Ajustar para que encaje con el contenedor superior */
+  width: 100%; /* Ajustar el ancho al 100% */
+}
+
+.resultados-table {
+  border-collapse: collapse;
+  width: 100%; /* Ajustar el ancho al 100% */
+  background-color: #222;
+  margin-left: auto; /* Centrar la tabla */
+  margin-right: auto; /* Centrar la tabla */
+}
+
+.resultados-table th, .resultados-table td {
+  border: 1px solid #444;
+  padding: 4px;
+  text-align: center;
+  font-size: 12px; /* Reducir tamaño de fuente */
+}
+
+.resultados-table th,
+.resultados-table td {
+  width: auto; /* Ajuste del ancho al contenido */
+}
+
+.resultados-table th.partido-column,
+.resultados-table td.partido-column {
+  width: auto; /* Ajuste del ancho al contenido */
+}
+
+.resultados-table th {
+  background-color: #333;
+  color: #fff;
+}
+
+.resultados-table td {
+  background-color: #444;
+  color: #fff;
+}
+
+/* Estilos para el header y footer */
+.full-width-header, .full-width-footer {
+  width: 100%;
+  background-color: #121212; /* Fondo más oscuro */
+}

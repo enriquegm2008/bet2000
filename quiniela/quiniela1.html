@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiniela Deportiva</title>
+    <link rel="stylesheet" href="quiniela1.css">
+    <link rel="stylesheet" href="/hyf/header/header.css">
+    <link rel="stylesheet" href="/hyf/footer/footer.css">
+    <script defer type="module" src="quiniela1.js"></script>
+    <script defer src="/hyf/header/header.js"></script>
+    <script defer src="/hyf/footer/footer.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Contenido principal -->
+    <main>
+        <p class="quiniela-deadline" style="display: none;">Fecha límite para participar: <span id="deadline"></span></p>
+        <p class="countdown" style="display: none;">Tiempo restante: <span id="countdown"></span></p>
+
+        <form id="quinielaForm">
+            <div class="select-container">
+                <label for="jornadaSelect">Selecciona la Jornada:</label>
+                <select id="jornadaSelect" class="custom-select">
+                    <option value="" selected>Selecciona una jornada</option>
+                    <!-- Opciones generadas dinámicamente por JavaScript -->
+                </select>
+            </div>
+
+            <div id="navigationButtons" class="buttons-container">
+                <button type="button" id="prevColumn" class="centered">Anterior</button>
+                <button type="button" id="nextColumn" class="centered">Siguiente</button>
+            </div>
+
+            <div id="tableContainer" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="bloques"></th>
+                            <th class="double-border" data-column="1"><input type="checkbox" name="columnas" value="1" disabled></th>
+                            <th class="double-border" data-column="2"><input type="checkbox" name="columnas" value="2" disabled></th>
+                            <th class="double-border" data-column="3"><input type="checkbox" name="columnas" value="3" disabled></th>
+                            <th class="double-border" data-column="4"><input type="checkbox" name="columnas" value="4" disabled></th>
+                            <th class="double-border" data-column="5"><input type="checkbox" name="columnas" value="5" disabled></th>
+                            <th class="double-border" data-column="6"><input type="checkbox" name="columnas" value="6" disabled></th>
+                            <th class="double-border" data-column="7"><input type="checkbox" name="columnas" value="7" disabled></th>
+                            <th class="double-border" data-column="8"><input type="checkbox" name="columnas" value="8" disabled></th>
+                        </tr>
+                        <tr>
+                            <th class="bloques">Bloques</th>
+                            <th class="double-border" data-column="1">1</th>
+                            <th class="double-border" data-column="2">2</th>
+                            <th class="double-border" data-column="3">3</th>
+                            <th class="double-border" data-column="4">4</th>
+                            <th class="double-border" data-column="5">5</th>
+                            <th class="double-border" data-column="6">6</th>
+                            <th class="double-border" data-column="7">7</th>
+                            <th class="double-border" data-column="8">8</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quinielaBody">
+                        <!-- Filas generadas dinámicamente por JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="buttons-container" id="submitContainer" style="display: none;">
+                <button type="submit" class="centered" id="submitBtn">Enviar Quiniela</button>
+            </div>
+        </form>
+
+        <!-- Mensaje de éxito o error -->
+        <div id="mensaje" style="display: none;"></div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

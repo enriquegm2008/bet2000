@@ -163,6 +163,11 @@ nav .logo {
   border-bottom: none; /* Elimina el borde del último elemento */
 }
 
+.saldo-label {
+  margin-right: 5px;
+  font-size: 1.2em;
+}
+
 .balance {
   margin-right: 15px;
   font-size: 1.2em;
@@ -177,25 +182,45 @@ nav .logo {
 /* Media Queries para ajustar el tamaño en dispositivos móviles */
 @media (max-width: 767px) {
   header h1 {
-    font-size: 1.5em; /* Reducir tamaño del texto "Bet2000" */
+    font-size: 1em; /* Reducir tamaño del texto "Bet2000" */
   }
 
   nav .button, nav .small-button {
-    padding: 3px 6px;
-    font-size: 0.7em;
-    margin: 0 5px;
+    padding: 1px 2px;
+    font-size: 0.5em;
+    margin: 0 2px;
   }
 
   nav .logo {
-    height: 40px;  /* Ajustar la altura del logo para que coincida con los botones */
+    height: 15px;  /* Ajustar la altura del logo para que coincida con los botones */
   }
 
   header .center-nav {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 5px;
   }
 
   header .center-nav a {
-    font-size: 1em;
+    font-size: 0.6em;
+  }
+
+  .menu-icon {
+    font-size: 0.5em;
+    height: 15px;
+  }
+
+  .saldo-label {
+    font-size: 0.5em;
+    margin-right: 2px;
+  }
+
+  .balance {
+    font-size: 0.5em;
+    margin-right: 2px;
+  }
+
+  .dropdown-content a {
+    padding: 5px 8px;
+    font-size: 0.6em;
   }
 }

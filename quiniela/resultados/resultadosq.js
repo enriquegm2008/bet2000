@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, collection, doc, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -18,23 +18,91 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Función para marcar el enlace activo en el header
-function markActiveLink() {
-  const currentPath = window.location.pathname;
-  const centerNavLinks = document.querySelectorAll(".center-nav a");
+let user = null;
 
-  centerNavLinks.forEach(link => {
-    if (link.getAttribute("href") === currentPath || link.getAttribute("href") === currentPath.split('/').pop()) {
-      link.classList.add("active");
+onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+        user = currentUser;
+        generarApuesta();
     } else {
-      link.classList.remove("active");
+        alert("Debes iniciar sesión para acceder a esta página.");
+        window.location.href = "/claves/iniciosesion/iniciar-sesion.html";
     }
-  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadHeader();
+    loadFooter();
+
+    const quinielaIframe = document.getElementById('quiniela-iframe');
+    const apuestaIframe = document.getElementById('apuesta-iframe');
+
+    quinielaIframe.onload = function() {
+        adjustIframeHeight(quinielaIframe);
+    };
+
+    apuestaIframe.onload = function() {
+        adjustIframeHeight(apuestaIframe);
+    };
+});
+
+function generarApuesta() {
+    const apuestaContainer = document.getElementById('apuesta-container');
+    apuestaContainer.innerHTML = ''; // Limpiar el contenido
+
+    getDocs(collection(db, "quiniela"))
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+                const { partidos } = doc.data();
+
+                partidos.forEach((partido, i) => {
+                    const partidoDiv = document.createElement('div');
+                    partidoDiv.className = 'partido';
+
+                    const equipoDiv = document.createElement('div');
+                    equipoDiv.className = 'equipo';
+                    equipoDiv.innerHTML = `<span>${partido.equipo1} - ${partido.equipo2}</span>`;
+
+                    const opcionesDiv = document.createElement('div');
+                    opcionesDiv.className = 'opciones';
+
+                    opcionesDiv.innerHTML = `
+                        <input type="radio" id="partido${i}_1" name="partido${i}" value="1">
+                        <label for="partido${i}_1">1</label>
+                        <input type="radio" id="partido${i}_X" name="partido${i}" value="X">
+                        <label for="partido${i}_X">X</label>
+                        <input type="radio" id="partido${i}_2" name="partido${i}" value="2">
+                        <label for="partido${i}_2">2</label>
+                    `;
+
+                    equipoDiv.appendChild(opcionesDiv);
+                    partidoDiv.appendChild(equipoDiv);
+                    apuestaContainer.appendChild(partidoDiv);
+                });
+            });
+        })
+        .catch((error) => {
+            console.error("Error al obtener los datos de la quiniela:", error);
+        });
 }
 
-// Función para formatear el balance a 2 decimales
-function formatearBalance(balance) {
-  return balance.toFixed(2);
+function loadHeader() {
+    fetch("/hyf/header/header.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("header-placeholder").innerHTML = data;
+            initHeader(); // Inicializar el header una vez que esté cargado
+        })
+        .catch(error => console.error("Error al cargar el header:", error));
+}
+
+function loadFooter() {
+    fetch("/hyf/footer/footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        })
+        .catch(error => console.error("Error al cargar el footer:", error));
 }
 
 // Función para inicializar el header
@@ -43,7 +111,7 @@ function initHeader() {
     onAuthStateChanged(auth, async (user) => {
         const navUser = document.getElementById('nav-user');
         const navGuest = document.getElementById('nav-guest');
-        const balanceElement = document.getElementById('balance');
+        const balance = document.getElementById('balance');
         const adminLink = document.getElementById('admin-link');
 
         if (user) {
@@ -55,10 +123,10 @@ function initHeader() {
                 const userDoc = await getDoc(userDocRef);
 
                 if (userDoc.exists()) {
-                    balanceElement.innerText = formatearBalance(userDoc.data().saldo);
+                    balance.innerText = `${userDoc.data().saldo.toFixed(2)}€`;
                 } else {
                     await setDoc(userDocRef, { saldo: 1000 });
-                    balanceElement.innerText = formatearBalance(1000);
+                    balance.innerText = `1000.00€`;
                 }
 
                 const roleDocRef = doc(db, "roles", user.uid);
@@ -79,7 +147,7 @@ function initHeader() {
     });
 
     // Cerrar menús desplegables al hacer clic fuera
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (!event.target.matches('.logo') && !event.target.matches('.menu-icon')) {
             const dropdowns = document.getElementsByClassName("dropdown-content");
             for (let i = 0; i < dropdowns.length; i++) {
@@ -96,22 +164,16 @@ function initHeader() {
             }
         }
     };
-
-    // Marcar el enlace activo en el header después de inicializar el header
-    markActiveLink();
 }
 
-// Llamar a la función initHeader cuando la página haya cargado
-window.onload = initHeader;
-
 // Función para alternar el menú desplegable
-window.toggleDropdown = function() {
+window.toggleDropdown = function () {
     const dropdownMenu = document.getElementById("dropdown-menu");
-    dropdownMenu.classList.toggle("show");
+    dropdownMenu.classList.toggle('show');
 };
 
 // Función para alternar opciones
-window.toggleOptions = function(optionsId) {
+window.toggleOptions = function (optionsId) {
     const options = document.getElementById(optionsId);
     const container = options.parentElement;
 
@@ -125,10 +187,10 @@ window.toggleOptions = function(optionsId) {
 };
 
 // Función para alternar el menú de invitados
-window.toggleGuestMenu = function() {
+window.toggleGuestMenu = function () {
     const guestMenu = document.getElementById("guest-menu");
     const menuIcon = document.querySelector(".menu-icon");
-    
+
     if (guestMenu.style.display === "block") {
         guestMenu.classList.remove("show");
         menuIcon.innerHTML = "&#9776;"; // Tres barritas
@@ -139,7 +201,7 @@ window.toggleGuestMenu = function() {
 };
 
 // Función para cerrar sesión
-window.logout = async function() {
+window.logout = async function () {
     try {
         await signOut(auth);
         alert("Has cerrado sesión.");
@@ -148,4 +210,10 @@ window.logout = async function() {
         console.error("Error al cerrar sesión:", error);
         alert("Error al cerrar sesión: " + error.message);
     }
-};
+}
+
+// Ajustar la altura del iframe según su contenido
+function adjustIframeHeight(iframe) {
+    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    iframe.style.height = iframeDocument.documentElement.scrollHeight + 'px';
+}

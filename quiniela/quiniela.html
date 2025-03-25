@@ -1,46 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiniela</title>
-  <link rel="stylesheet" href="quiniela.css">
-  <link rel="stylesheet" href="../hyf/header/header.css">
-  <link rel="stylesheet" href="../hyf/footer/footer.css">
-  <script defer type="module" src="quiniela.js"></script>
-  <script defer type="module" src="../hyf/header/header.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bet2000 - Quiniela</title>
+    <link rel="stylesheet" href="quiniela.css">
+    <link rel="stylesheet" href="../hyf/header/header.css">
+    <link rel="stylesheet" href="../hyf/footer/footer.css">
+    <script defer type="module" src="quiniela.js"></script>
+    <script defer src="../hyf/header/header.js"></script>
+    <script defer src="../hyf/footer/footer.js"></script>
 </head>
 <body>
-  <!-- Header -->
-  <div id="header-placeholder"></div>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-  <!-- Contenido principal -->
-  <main class="content">
-    <h1 class="quiniela-title">Quiniela</h1>
-    <p class="quiniela-description">Bienvenido a la sección de quinielas. Aquí puedes hacer tus apuestas.</p>
-    <!-- Aquí iría el contenido específico de la quiniela -->
-  </main>
+    <!-- Botón para comprobar resultados -->
+    <div class="buttons-container">
+        <a href="resultados/resultadosq.html" class="check-results-button centered">Comprobar Resultados</a>
+    </div>
 
-  <!-- Footer -->
-  <div id="footer-placeholder"></div>
+    <!-- Contenido principal -->
+    <main class="content">
+        <h1 class="quiniela-title">Quiniela</h1>
+        <p class="quiniela-description">Bienvenido a la sección de quinielas. Aquí puedes hacer tus apuestas.</p>
+        <p class="quiniela-description">No marques la casilla hasta tener todas las casillas completas, en este caso, se le descontara el dinero sin contar la apuesta.</p>
+        <!-- Aquí iría el contenido específico de la quiniela -->
+        <iframe id="quinielaIframe" src="quiniela1.html" width="100%" frameborder="0"></iframe>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 </body>
-<script>
-  // Cargar el header y el footer
-  document.addEventListener("DOMContentLoaded", function() {
-    fetch("../hyf/header/header.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("header-placeholder").innerHTML = data;
-        initHeader(); // Inicializar el header una vez que esté cargado
-      })
-      .catch(error => console.error("Error al cargar el header:", error));
-
-    fetch("../hyf/footer/footer.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-      })
-      .catch(error => console.error("Error al cargar el footer:", error));
-  });
-</script>
 </html>

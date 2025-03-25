@@ -1,0 +1,210 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+}
+
+main {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 1400px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.select-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.select-container label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.select-container select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    width: 200px; /* Ancho del select */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para el select */
+}
+
+/* Añadir espacio entre el select y la tabla */
+#tableContainer {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+th {
+    background-color: #ff1b1bc0;
+    color: #fff;
+}
+
+td {
+    background-color: #35e4003b; /* Rojo claro */
+}
+
+th.bloques {
+    text-align: right;
+    background-color: #fff;
+    color: #000;
+}
+
+.equipo {
+    text-align: left;
+    padding-left: 8px;
+    width: 200px;
+    background-color: #fff;
+    color: #0000ff;
+    text-transform: uppercase;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid #ddd;
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.label-container .dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #888;
+    margin: 0 5px;
+}
+
+.partido-num {
+    font-weight: bold;
+}
+
+label {
+    cursor: pointer;
+    font-size: 12px;
+    position: relative;
+    color: red;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin: 1px;
+    position: relative;
+}
+
+input[type="radio"]:checked + label::after {
+    content: "✓";
+    color: #fff;
+    font-size: 16px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: green;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.double-border {
+    position: relative;
+}
+
+.double-border::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-top: 4px double #ff0000;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+}
+
+thead tr:first-child th {
+    border: none;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 600px) {
+    body {
+        font-size: 8px;
+    }
+
+    main {
+        padding: 5px;
+    }
+
+    .select-container label {
+        font-size: 10px;
+    }
+
+    .select-container select {
+        padding: 5px;
+        font-size: 10px;
+        width: 150px;
+    }
+
+    th, td {
+        padding: 3px;
+        font-size: 8px;
+    }
+
+    .equipo {
+        padding-left: 3px;
+        width: 100px;
+    }
+
+    input[type="radio"] + label {
+        width: 12px;
+        height: 12px;
+        line-height: 12px;
+        font-size: 6px;
+    }
+
+    input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+
+    button {
+        padding: 6px;
+        font-size: 10px;
+    }
+}
